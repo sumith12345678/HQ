@@ -54,15 +54,27 @@
 
     <!-- Immersive Cinematic Hero Section -->
     <section class="hero-wrapper" id="hero">
+        <!-- Slider Backgrounds -->
+        <div class="hero-slider-bg slide-1 active"></div>
+        <div class="hero-slider-bg slide-2"></div>
+
         <div class="hero-content-inner reveal-content">
             <h4 class="hero-title">Co-work. <span class="text-orange">Co-exist.</span></h4>
             <p class="hero-subtitle">Discover spaces that redefine your work and inspire your greatest ambitions.
             </p>
-            <div class="hero-btns reveal-content">
-                <a href="#about" class="btn-capsule">
+            <div class="hero-btns reveal-content d-flex flex-column align-items-center">
+                <a href="#about" class="btn-capsule mb-4">
                     Discover Spaces
                     <div class="btn-icon"><i class="fas fa-arrow-up"></i></div>
                 </a>
+
+                <!-- Hero Slider Dots -->
+                <div class="hero-slider-dots">
+                    <span class="hero-dot active" data-slide="0"></span>
+                    <span class="hero-dot" data-slide="1"></span>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Fixed Top-Right Location Pill -->

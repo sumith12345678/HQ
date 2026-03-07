@@ -2,7 +2,47 @@
 document.addEventListener('DOMContentLoaded', () => {
     initGSAPAnimations();
     initNavbarScroll();
+    initHeroSlider();
 });
+
+// --- Hero Slider ---
+function initHeroSlider() {
+    const slides = document.querySelectorAll('.hero-slider-bg');
+    const dots = document.querySelectorAll('.hero-dot');
+    if (slides.length === 0) return;
+
+    let currentSlide = 0;
+    let slideInterval;
+
+    const goToSlide = (index) => {
+        slides[currentSlide].classList.remove('active');
+        if (dots[currentSlide]) dots[currentSlide].classList.remove('active');
+
+        currentSlide = index;
+
+        slides[currentSlide].classList.add('active');
+        if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+    };
+
+    const nextSlide = () => {
+        let next = (currentSlide + 1) % slides.length;
+        goToSlide(next);
+    };
+
+    const startSlider = () => {
+        clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, 5000); // Change image every 5 seconds
+    };
+
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            goToSlide(index);
+            startSlider();
+        });
+    });
+
+    startSlider();
+}
 
 // --- GSAP ANIMATIONS ---
 function initGSAPAnimations() {
