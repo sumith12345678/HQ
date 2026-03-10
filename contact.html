@@ -1,0 +1,905 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HeadQ | Contact Us</title>
+    <meta name="description" content="Contact HeadQ for premium coworking spaces in Kochi and Kozhikode.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- React + Babel + GSAP -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="landing.css">
+
+    <style>
+        :root {
+            --primary-orange: #f48c06;
+            --bg-dark: #070707;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #070707;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* ======== BEAR GAME AREA ======== */
+        #bear-game-area {
+            background: #0d0d0d;
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Game UI Label */
+        .game-label {
+            position: absolute;
+            top: 130px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 300;
+        }
+
+        .game-label h2 {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .game-label p {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        /* Scroll hint */
+        .scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 300;
+            text-align: center;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-hint p {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        .scroll-hint i {
+            color: var(--primary-orange);
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-6px);
+            }
+        }
+
+        /* â”€â”€â”€ BEAR Game Styles (dark version) â”€â”€â”€ */
+        .mask {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #0d0d0d;
+            z-index: 4;
+            /* Must be above bear(3) but below checkbox(5) */
+        }
+
+        .bear {
+            width: 100%;
+            background: transparent;
+            transform: translate(0, 100%);
+        }
+
+        .bear__swear {
+            display: none;
+            position: absolute;
+            left: 105%;
+            top: 0;
+            background: #fff;
+            font-weight: bolder;
+            padding: 10px;
+            border-radius: 8px;
+            color: #000;
+            white-space: nowrap;
+            font-size: 1.1rem;
+        }
+
+        .bear__swear:before {
+            content: '';
+            background: #fff;
+            position: absolute;
+            top: 90%;
+            right: 70%;
+            height: 30px;
+            width: 30px;
+            clip-path: polygon(0 100%, 100% 0, 50% 0);
+            -webkit-clip-path: polygon(0 100%, 100% 0, 50% 0);
+        }
+
+        .bear__wrap {
+            width: 100px;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-15%, -50%) rotate(5deg) translate(0, -75%);
+            background: transparent;
+            z-index: 3;
+            /* Below mask(4), bear is clipped by it */
+        }
+
+        .bear__arm-wrap {
+            background: transparent;
+            position: absolute;
+            height: 30px;
+            width: 90px;
+            z-index: 4;
+            top: 50%;
+            left: 50%;
+            transform: translate(0, -50%) rotate(0deg);
+        }
+
+        .bear__arm {
+            background: transparent;
+            transform-origin: left;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-35%, -50%) scaleX(1);
+        }
+
+        .bear__paw {
+            background: #784421;
+            border-radius: 100%;
+            position: absolute;
+            height: 30px;
+            width: 30px;
+            z-index: 10;
+            top: 50%;
+            left: 50%;
+            transform-origin: right;
+            transform: translate(80px, -15px) scaleX(0);
+        }
+
+        .checkbox {
+            border-radius: 50px;
+            height: 100px;
+            position: absolute;
+            width: 200px;
+            z-index: 5;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .checkbox [type='checkbox'] {
+            cursor: pointer;
+            border-radius: 50px;
+            position: absolute;
+            outline: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            opacity: 0;
+            z-index: 10;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+        }
+
+        .checkbox__bg {
+            background: #2a2a2a;
+            border-radius: 50px;
+            height: 100%;
+            width: 100%;
+            z-index: 1;
+            border: 2px solid #333;
+        }
+
+        .checkbox__indicator {
+            background: transparent;
+            height: 100%;
+            width: 50%;
+            border-radius: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .checkbox__indicator:after {
+            content: '';
+            border-radius: 100%;
+            height: 85%;
+            width: 85%;
+            background: #ddd;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ======== CONTACT SECTION ======== */
+        #contact-section {
+            background: #070707;
+            padding: 100px 0;
+            position: relative;
+            display: none;
+            animation: fadeReveal 1s ease forwards;
+        }
+
+        @keyframes fadeReveal {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, #111 0%, #0c0c0c 100%);
+            border: 1px solid #1e1e1e;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Left: Address Panel */
+        .address-panel {
+            background: linear-gradient(160deg, #0f0f0f, #111);
+            padding: 60px 40px;
+            border-right: 1px solid #1e1e1e;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .address-panel::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle, rgba(244, 140, 6, 0.12) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .address-panel .tag-badge {
+            color: var(--primary-orange);
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .location-block {
+            border-left: 2px solid #222;
+            padding-left: 20px;
+            margin-bottom: 30px;
+        }
+
+        .location-block h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary-orange);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .location-block p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            margin: 0;
+            line-height: 1.7;
+        }
+
+        .location-block .coords {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        .contact-line {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .contact-icon {
+            width: 42px;
+            height: 42px;
+            min-width: 42px;
+            background: rgba(244, 140, 6, 0.08);
+            border: 1px solid rgba(244, 140, 6, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-orange);
+            font-size: 0.85rem;
+        }
+
+        .contact-line p {
+            color: #fff;
+            margin: 0;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .contact-line small {
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 0.75rem;
+        }
+
+        /* Right: Form Panel */
+        .form-panel {
+            padding: 60px 50px;
+        }
+
+        .form-panel h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .form-panel p {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.95rem;
+            margin-bottom: 32px;
+        }
+
+        .input-group-dark label {
+            display: block;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .input-group-dark input,
+        .input-group-dark select,
+        .input-group-dark textarea {
+            width: 100%;
+            background: #0a0a0a;
+            border: 1px solid #242424;
+            color: #fff;
+            border-radius: 12px;
+            padding: 14px 18px;
+            font-size: 0.95rem;
+            font-family: 'Outfit', sans-serif;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            resize: none;
+        }
+
+        .input-group-dark input:focus,
+        .input-group-dark select:focus,
+        .input-group-dark textarea:focus {
+            border-color: var(--primary-orange);
+            box-shadow: 0 0 0 3px rgba(244, 140, 6, 0.12);
+            outline: none;
+            background: #0c0c0c;
+        }
+
+        .input-group-dark input::placeholder,
+        .input-group-dark textarea::placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .input-group-dark select option {
+            background: #111;
+        }
+
+        .btn-send {
+            background: var(--primary-orange);
+            color: #000;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            padding: 16px 44px;
+            font-size: 1rem;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-send:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(244, 140, 6, 0.35);
+        }
+
+        @media (max-width: 991px) {
+            .address-panel {
+                border-right: none;
+                border-bottom: 1px solid #1e1e1e;
+                padding: 40px 24px;
+            }
+
+            .form-panel {
+                padding: 40px 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div class="nav-wrapper">
+        <nav class="navbar navbar-expand-lg" id="mainNav">
+            <div class="container-fluid px-2">
+                <a class="navbar-brand me-4 ms-2" href="landing.html">
+                    <span class="logo-text text-white">HeadQ</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    style="border:none; box-shadow:none;">
+                    <i class="fas fa-bars text-white fs-4"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto align-items-center">
+                        <li class="nav-item"><a class="nav-link" href="landing.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="landing.html#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="landing.html#spaces">Spaces</a></li>
+                        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                        <li class="nav-item"><a class="nav-link" href="landing.html#faq">FAQ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html"
+                                style="color:var(--primary-orange);">Contact</a></li>
+                    </ul>
+                    <div class="ms-auto d-flex align-items-center">
+                        <a href="#contact-section" class="btn-capsule me-2">
+                            Get in Touch
+                            <div class="btn-icon"><i class="fas fa-arrow-down"></i></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- BEAR GAME SECTION (fun intro) -->
+    <div id="bear-game-area">
+        <div class="game-label">
+            <h2>Wanna reach us?</h2>
+            <p>Click the switch to proceed, if you can ..!</p>
+        </div>
+
+        <!-- React mounts here -->
+        <div id="bear-app" style="position:absolute;inset:0;"></div>
+
+        <div class="scroll-hint">
+            <i class="fas fa-chevron-down fs-5 mb-1 d-block"></i>
+            <p>Keep clicking...</p>
+        </div>
+    </div>
+
+    <!-- CONTACT SECTION (always visible below) -->
+    <section id="contact-section">
+        <div class="container">
+
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <span
+                    style="color:var(--primary-orange);font-size:.8rem;letter-spacing:3px;text-transform:uppercase;font-weight:700;">Reach
+                    Out</span>
+                <h2 class="display-5 fw-bold text-white mt-2">Let's Start a Conversation</h2>
+            </div>
+
+            <div class="contact-card">
+                <div class="row g-0">
+
+                    <!-- LEFT: Address & Info -->
+                    <div class="col-lg-4 address-panel">
+                        <span class="tag-badge d-block mb-4">Our Locations</span>
+
+                        <!-- Kochi -->
+                        <div class="location-block">
+                            <h4>Kochi</h4>
+                            <p>HiLite Platino, Kochi</p>
+                            <p class="coords">9.9312Â° N, 76.2673Â° E</p>
+                        </div>
+
+                        <!-- Kozhikode -->
+                        <div class="location-block">
+                            <h4>Kozhikode</h4>
+                            <p>Hi-Lite Business Park, Kozhikode</p>
+                            <p class="coords">11.2488Â° N, 75.7839Â° E</p>
+                        </div>
+
+                        <!-- Divider -->
+                        <div style="border-top: 1px solid #1e1e1e; margin: 30px 0;"></div>
+
+                        <!-- Contact Details -->
+                        <div class="contact-line">
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <p>info@headq.in</p>
+                                <small>Email us anytime</small>
+                            </div>
+                        </div>
+
+                        <div class="contact-line">
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <p>+91 90371 15652</p>
+                                <small>Mon â€“ Sat, 9am â€“ 6pm</small>
+                            </div>
+                        </div>
+
+                        <!-- Social -->
+                        <div style="border-top: 1px solid #1e1e1e; margin-top: 30px; padding-top: 24px;">
+                            <p
+                                style="color:rgba(255,255,255,0.3);font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">
+                                Follow Us</p>
+                            <div class="d-flex gap-3">
+                                <a href="#" style="color:rgba(255,255,255,0.5);font-size:1.1rem;transition:color 0.2s;"
+                                    onmouseover="this.style.color='#f48c06'"
+                                    onmouseout="this.style.color='rgba(255,255,255,0.5)'"><i
+                                        class="fab fa-instagram"></i></a>
+                                <a href="#" style="color:rgba(255,255,255,0.5);font-size:1.1rem;transition:color 0.2s;"
+                                    onmouseover="this.style.color='#f48c06'"
+                                    onmouseout="this.style.color='rgba(255,255,255,0.5)'"><i
+                                        class="fab fa-linkedin"></i></a>
+                                <a href="#" style="color:rgba(255,255,255,0.5);font-size:1.1rem;transition:color 0.2s;"
+                                    onmouseover="this.style.color='#f48c06'"
+                                    onmouseout="this.style.color='rgba(255,255,255,0.5)'"><i
+                                        class="fab fa-facebook"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: Enquiry Form -->
+                    <div class="col-lg-8 form-panel">
+                        <h2 class="text-white">Send an <span style="color:var(--primary-orange);">Enquiry</span></h2>
+                        <p>Fill in your details and we'll get back to you within 24 hours.</p>
+
+                        <form class="row g-3" id="enquiryForm" onsubmit="sendToWhatsApp(event)">
+                            <div class="col-md-6 input-group-dark">
+                                <label>First Name</label>
+                                <input type="text" id="fName" placeholder="John">
+                            </div>
+                            <div class="col-md-6 input-group-dark">
+                                <label>Last Name</label>
+                                <input type="text" id="lName" placeholder="Doe">
+                            </div>
+                            <div class="col-md-6 input-group-dark">
+                                <label>Email Address</label>
+                                <input type="email" id="fEmail" placeholder="you@example.com">
+                            </div>
+                            <div class="col-md-6 input-group-dark">
+                                <label>Phone Number</label>
+                                <input type="tel" id="fPhone" placeholder="+91 00000 00000">
+                            </div>
+                            <div class="col-md-6 input-group-dark">
+                                <label>Preferred Location</label>
+                                <select id="fLocation">
+                                    <option value="" disabled selected>Choose city...</option>
+                                    <option>Kochi – HiLite Platino</option>
+                                    <option>Kozhikode – Hi-Lite Business Park</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 input-group-dark">
+                                <label>Interested In</label>
+                                <select id="fPlan">
+                                    <option value="" disabled selected>Select a plan...</option>
+                                    <option>Hot Desk (Flexible)</option>
+                                    <option>Dedicated Desk (Monthly)</option>
+                                    <option>Private Cabin</option>
+                                    <option>Virtual Office</option>
+                                    <option>Event / Meeting Room</option>
+                                </select>
+                            </div>
+                            <div class="col-12 input-group-dark">
+                                <label>Message</label>
+                                <textarea id="fMessage" rows="5"
+                                    placeholder="Tell us about yourself or your team..."></textarea>
+                            </div>
+                            <div class="col-12 mt-1">
+                                <button type="submit" class="btn-send" id="waBtn">
+                                    <i class="fab fa-whatsapp" style="font-size:1.2rem;"></i>
+                                    Send via WhatsApp
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- Success toast -->
+                        <div id="successToast"
+                            style="display:none; margin-top:20px; background:rgba(244,140,6,0.12); border:1px solid rgba(244,140,6,0.3); border-radius:12px; padding:16px 20px;">
+                            <i class="fab fa-whatsapp" style="color:#25d366; margin-right:8px;"></i>
+                            <span style="color:#fff; font-size:0.95rem;">Redirecting you to WhatsApp... 🐻</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer border-top border-white border-opacity-10">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-5">
+                    <span class="logo-text text-white">HeadQ</span>
+                    <p class="mt-4 pe-lg-5 text-white">Premium coworking spaces designed for creators, culture, and
+                        community.</p>
+                    <div class="mt-4">
+                        <p class="text-white mb-2"><i class="fas fa-envelope text-orange me-2"></i> info@headq.in</p>
+                        <p class="text-white mb-2"><i class="fas fa-phone text-orange me-2"></i> +91 90371 15652</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-5">
+                    <h6 class="text-white mb-4 fw-bold">Locations</h6>
+                    <div class="mb-4">
+                        <p class="mb-1 fw-bold text-white">KOCHI</p>
+                        <p class="small text-muted mb-1">HiLite Platino, Kochi</p>
+                        <p class="small location-coords">9.9312&deg; N, 76.2673&deg; E</p>
+                    </div>
+                    <div>
+                        <p class="mb-1 fw-bold text-white">KOZHIKODE</p>
+                        <p class="small text-muted mb-1">Hi-Lite Business Park, Kozhikode</p>
+                        <p class="small location-coords">11.2488&deg; N, 75.7839&deg; E</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <h6 class="text-white mb-4 fw-bold">Stay Connected</h6>
+                    <div class="d-flex gap-3 mb-4">
+                        <a href="#" class="fs-4"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="fs-4"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="fs-4"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="fs-4"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                    <p class="text-muted small">Special offer valid only for 3 months. T&amp;C Apply.</p>
+                </div>
+            </div>
+            <div class="mt-5 pt-5 border-top border-white border-opacity-5 text-center text-muted small">
+                &copy; 2024 HeadQ. Crafted for the ambitious.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function sendToWhatsApp(e) {
+            e.preventDefault();
+
+            const firstName = document.getElementById('fName').value.trim();
+            const lastName = document.getElementById('lName').value.trim();
+            const email = document.getElementById('fEmail').value.trim();
+            const phone = document.getElementById('fPhone').value.trim();
+            const location = document.getElementById('fLocation').value;
+            const plan = document.getElementById('fPlan').value;
+            const message = document.getElementById('fMessage').value.trim();
+
+            const name = (firstName + ' ' + lastName).trim() || 'Not provided';
+
+            const text =
+                `🏢 *HeadQ Enquiry*
+
+👤 *Name:* ${name}
+📧 *Email:* ${email || 'Not provided'}
+📞 *Phone:* ${phone || 'Not provided'}
+📍 *Location:* ${location || 'Not selected'}
+💼 *Interested In:* ${plan || 'Not selected'}
+💬 *Message:*
+${message || 'No message'}
+
+_Sent via HeadQ Contact Page_`;
+
+            const waNumber = '918129542337';
+            const waURL = 'https://wa.me/' + waNumber + '?text=' + encodeURIComponent(text);
+
+            // Show toast
+            const toast = document.getElementById('successToast');
+            toast.style.display = 'block';
+            setTimeout(() => { window.open(waURL, '_blank'); }, 600);
+        }
+    </script>
+
+    <!-- Bear Game -->
+    <script type="text/babel">
+        const { useState, useRef, useEffect, Fragment } = React;
+        const { set, to, timeline } = gsap;
+
+        let SOUNDS;
+        try {
+            SOUNDS = {
+                ON: new Audio('https://assets.codepen.io/605876/switch-on.mp3'),
+                OFF: new Audio('https://assets.codepen.io/605876/switch-off.mp3'),
+                GROAN: new Audio('https://assets.codepen.io/605876/bear-groan.mp3'),
+            };
+            SOUNDS.GROAN.playbackRate = 2;
+        } catch (e) {
+            SOUNDS = { ON: { play: () => { } }, OFF: { play: () => { } }, GROAN: { play: () => { } } };
+        }
+
+        const BearGame = () => {
+            const [checked, setChecked] = useState(false);
+            const [phase, setPhase] = useState(0); // 0=idle, 1=peeked once, 2=angry
+            const bearRef = useRef(null);
+            const swearRef = useRef(null);
+            const armWrapRef = useRef(null);
+            const pawRef = useRef(null);
+            const armRef = useRef(null);
+            const bgRef = useRef(null);
+            const indicatorRef = useRef(null);
+            const busy = useRef(false);
+
+            const onChange = () => {
+                if (checked || busy.current) return;
+                setChecked(true);
+            };
+
+            useEffect(() => {
+                if (!checked) return;
+                busy.current = true;
+
+                // Turn switch ON (orange)
+                timeline({ onStart: () => { try { SOUNDS.ON.play(); } catch (e) { } } })
+                    .to(bgRef.current, { duration: 0.25, backgroundColor: '#f48c06' }, 0)
+                    .to(indicatorRef.current, { duration: 0.25, x: '100%' }, 0)
+                    .call(() => phase === 0 ? runPhase1() : runPhase2());
+
+            }, [checked]);
+
+            function runPhase1() {
+                // â”€â”€ CLICK 1: Bear quickly peeks (ears visible), paw swats, then hides â”€â”€
+                timeline({
+                    onComplete: () => {
+                        setChecked(false);
+                        setPhase(1);
+                        busy.current = false;
+                    }
+                })
+                    .to(bearRef.current, { y: '45%', duration: 0.4, ease: 'back.out(1.8)' })
+                    .to(armWrapRef.current, { x: 50, duration: 0.2 }, '+=0.2')
+                    .to(armRef.current, { scaleX: 0.7, duration: 0.2 })
+                    .to(pawRef.current, {
+                        scaleX: 0.8, duration: 0.1,
+                        onStart: () => { try { SOUNDS.OFF.play(); } catch (e) { } }
+                    })
+                    .to(bgRef.current, { backgroundColor: '#2a2a2a', duration: 0.25 })
+                    .to(indicatorRef.current, { x: '0%', duration: 0.25 }, '<')
+                    .to(pawRef.current, { scaleX: 0, duration: 0.1 })
+                    .to(armRef.current, { scaleX: 1, duration: 0.1 })
+                    .to(armWrapRef.current, { x: 0, duration: 0.2 })
+                    .to(bearRef.current, { y: '100%', duration: 0.4, ease: 'back.in(2)' });
+            }
+
+            function runPhase2() {
+                // â”€â”€ CLICK 2: Bear rises ANGRY, swears, then form reveals â”€â”€
+                timeline({
+                    onComplete: () => {
+                        const el = document.getElementById('contact-section');
+                        if (el) {
+                            el.style.display = 'block';
+                            setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+                        }
+                        busy.current = false;
+                    }
+                })
+                    .to(bearRef.current, { y: '0%', duration: 0.5, ease: 'back.out(1.5)' })
+                    // Rage shake
+                    .to(bearRef.current, { x: -10, duration: 0.06, yoyo: true, repeat: 9 })
+                    .to(bearRef.current, { x: 0 })
+                    // Swear + groan
+                    .call(() => {
+                        try { SOUNDS.GROAN.play(); } catch (e) { }
+                        set(swearRef.current, { display: 'block' });
+                        setPhase(2); // show angry eyebrows
+                    })
+                    // Wait then angry swat
+                    .to(armWrapRef.current, { x: 55, duration: 0.12 }, '+=0.6')
+                    .to(armRef.current, { scaleX: 0.65, duration: 0.12 })
+                    .to(pawRef.current, {
+                        scaleX: 0.8, duration: 0.08,
+                        onStart: () => { try { SOUNDS.OFF.play(); } catch (e) { } }
+                    })
+                    // Switch flips OFF
+                    .to(bgRef.current, { backgroundColor: '#2a2a2a', duration: 0.25 })
+                    .to(indicatorRef.current, { x: '0%', duration: 0.25 }, '<')
+                    // Retract
+                    .to(pawRef.current, { scaleX: 0, duration: 0.1 })
+                    .to(armRef.current, { scaleX: 1, duration: 0.1 })
+                    .to(armWrapRef.current, { x: 0, duration: 0.2 })
+                    // Keep angry a moment, hide swear, then drop
+                    .to(swearRef.current, { display: 'none', duration: 0 }, '+=0.8')
+                    .to(bearRef.current, { y: '100%', duration: 0.6, ease: 'back.in(2)' });
+            }
+
+            return (
+                <Fragment>
+                    <div className="bear__wrap">
+                        <div ref={swearRef} className="bear__swear">Poda #@$%..!</div>
+                        {/* #@$%*! */}
+                        <svg ref={bearRef} className="bear" viewBox="0 0 284.94574 359.73706" preserveAspectRatio="xMinYMin">
+                            <g transform="translate(-7.5271369,-761.38595)">
+                                <g transform="matrix(1.2335313,0,0,1.2335313,-35.029693,-212.83637)">
+                                    <path d="M 263.90933,1081.4151 A 113.96792,96.862576 0 0 0 149.99132,985.71456 113.96792,96.862576 0 0 0 36.090664,1081.4151 l 227.818666,0 z" style={{ fill: '#784421' }} />
+                                    <path d="m 250.42825,903.36218 c 2e-5,66.27108 -44.75411,114.99442 -102.42825,114.99442 -57.674143,0 -98.428271,-48.72334 -98.428251,-114.99442 4e-6,-66.27106 40.754125,-92.99437 98.428251,-92.99437 57.67413,0 102.42825,26.72331 102.42825,92.99437 z" style={{ fill: '#784421' }} />
+                                    <path d="m 217,972.86218 c 2e-5,21.53911 -30.44462,42.00002 -68,42.00002 -37.55538,0 -66.000019,-20.46091 -66,-42.00002 0,-21.53911 28.44464,-36 66,-36 37.55536,0 68,14.46089 68,36 z" style={{ fill: '#e9c6af' }} />
+                                    <path d="m 181.5,944.36218 c 0,8.28427 -20.59974,26.5 -32.75,26.5 -12.15026,0 -34.75,-18.21573 -34.75,-26.5 0,-8.28427 22.59974,-13.5 34.75,-13.5 12.15026,0 32.75,5.21573 32.75,13.5 z" style={{ fill: '#000' }} />
+                                    <g>
+                                        <ellipse style={{ fill: '#784421' }} cx="69" cy="823.07269" rx="34.5" ry="33.289474" />
+                                        <path style={{ fill: '#e9c6af' }} d="M 69,47.310547 A 24.25,23.399124 0 0 0 44.75,70.710938 24.25,23.399124 0 0 0 64.720703,93.720703 c 0.276316,-0.40734 0.503874,-0.867778 0.787109,-1.267578 1.70087,-2.400855 3.527087,-4.666237 5.470704,-6.798828 1.943616,-2.132591 4.004963,-4.133318 6.179687,-6.003906 2.174725,-1.870589 4.461274,-3.611714 6.855469,-5.226563 2.394195,-1.614848 4.896019,-3.10338 7.498047,-4.46875 0.539935,-0.283322 1.133058,-0.500695 1.68164,-0.773437 A 24.25,23.399124 0 0 0 69,47.310547 Z" transform="translate(0,752.36216)" />
+                                    </g>
+                                    <g transform="matrix(-1,0,0,1,300,0)">
+                                        <ellipse style={{ fill: '#784421' }} cx="69" cy="823.07269" rx="34.5" ry="33.289474" />
+                                        <path style={{ fill: '#e9c6af' }} d="M 69,47.310547 A 24.25,23.399124 0 0 0 44.75,70.710938 24.25,23.399124 0 0 0 64.720703,93.720703 c 0.276316,-0.40734 0.503874,-0.867778 0.787109,-1.267578 1.70087,-2.400855 3.527087,-4.666237 5.470704,-6.798828 1.943616,-2.132591 4.004963,-4.133318 6.179687,-6.003906 2.174725,-1.870589 4.461274,-3.611714 6.855469,-5.226563 2.394195,-1.614848 4.896019,-3.10338 7.498047,-4.46875 0.539935,-0.283322 1.133058,-0.500695 1.68164,-0.773437 A 24.25,23.399124 0 0 0 69,47.310547 Z" transform="translate(0,752.36216)" />
+                                    </g>
+                                    <ellipse style={{ fill: '#000' }} cx="105.83063" cy="900.38916" rx="9.2701159" ry="9.6790915" />
+                                    <ellipse style={{ fill: '#000' }} cx="186.89894" cy="900.38916" rx="9.2701159" ry="9.6790915" />
+                                    {phase >= 2 && (
+                                        <Fragment>
+                                            <path d="m 92.05833,865.4614 39.42665,22.76299" style={{ stroke: '#000', strokeWidth: 4.86, strokeLinecap: 'round', strokeOpacity: 1 }} />
+                                            <path d="m 202.82482,865.4614 -39.42664,22.76299" style={{ stroke: '#000', strokeWidth: 4.86, strokeLinecap: 'round', strokeOpacity: 1 }} />
+                                        </Fragment>
+                                    )}
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                    <div ref={armWrapRef} className="bear__arm-wrap">
+                        <svg ref={armRef} className="bear__arm" viewBox="0 0 250.00001 99.999997" preserveAspectRatio="xMinYMin">
+                            <g transform="translate(868.57141,-900.93359)">
+                                <path style={{ fill: '#784421' }} d="m -619.43416,945.05124 c 4.18776,73.01076 -78.25474,53.24342 -150.21568,52.94118 -82.38711,-0.34602 -98.92158,-19.44459 -98.92157,-47.05883 0,-27.61424 4.78794,-42.54902 73.82353,-42.54902 69.03559,0 171.43607,-30.93764 175.31372,36.66667 z" />
+                                <ellipse style={{ fill: '#e9c6af' }} cx="-683.02264" cy="950.98572" rx="29.910826" ry="29.414362" />
+                            </g>
+                        </svg>
+                    </div>
+                    <div ref={pawRef} className="bear__paw" />
+                    <div className="mask" />
+                    <div className="checkbox" onChange={onChange}>
+                        <input type="checkbox" checked={checked} readOnly />
+                        <div ref={bgRef} className="checkbox__bg" />
+                        <div ref={indicatorRef} className="checkbox__indicator" />
+                    </div>
+                </Fragment>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('bear-app'));
+        root.render(<BearGame />);
+    </script>
+</body>
+
+</html>
