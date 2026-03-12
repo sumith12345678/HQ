@@ -140,6 +140,10 @@
             position: relative;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             cursor: pointer;
+            background: #111;
+            /* Performance boosts for scroll lag */
+            contain: paint;
+            transform: translateZ(0);
         }
 
         .gallery-card img {
@@ -147,6 +151,10 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            /* Hardware acceleration */
+            will-change: transform;
+            backface-visibility: hidden;
+            background: #050505;
         }
 
         .gallery-card:hover img {
@@ -259,7 +267,7 @@
                     const cssClass = gridClasses[index % gridClasses.length];
                     html += `
                         <div class="gallery-card ${cssClass}">
-                            <img src="${imgSrc}" alt="HeadQ Workspace" loading="lazy">
+                            <img src="${imgSrc}" alt="HeadQ Workspace" loading="lazy" decoding="async">
                             <div class="card-overlay">
                                 <h6 class="text-white mb-0 fw-bold"><i class="fas fa-search-plus text-orange me-2"></i>View Details</h6>
                             </div>
