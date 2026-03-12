@@ -4,7 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HeadQ | Designing Coworking Spaces Where Culture Meets Business</title>
+    <title>HeadQ | Coworking Spaces Where Culture Meets Business</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="assets/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
     <!-- Meta Tags for SEO -->
     <meta name="description"
         content="HeadQ creates premium coworking spaces in Kochi and Kozhikode. Join our vibrant community and unlock new opportunities for your business.">
@@ -21,6 +27,23 @@
     <link rel="stylesheet" href="landing.css">
 </head>
 
+<link rel="manifest" href="assets/favicon/site.webmanifest">
+<!-- Meta Tags for SEO -->
+<meta name="description"
+    content="HeadQ creates premium coworking spaces in Kochi and Kozhikode. Join our vibrant community and unlock new opportunities for your business.">
+
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Google Fonts: Outfit -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Custom CSS -->
+<link rel="stylesheet" href="landing.css">
+</head>
+
 <body>
 
     <!-- Floating Pill Navigation -->
@@ -28,7 +51,7 @@
         <nav class="navbar navbar-expand-lg" id="mainNav">
             <div class="container-fluid px-2">
                 <a class="navbar-brand me-4 ms-2" href="#">
-                    <span class="logo-text text-white">HeadQ</span>
+                    <img src="assets/logo/logo.png" alt="HeadQ" style="height: 44px; width: auto; object-fit: contain;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     style="border:none; box-shadow:none;">
@@ -37,8 +60,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto align-items-center">
                         <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="index.html#spaces">Spaces</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
                         <li class="nav-item"><a class="nav-link" href="index.html#faq">FAQ</a></li>
                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
@@ -369,311 +391,237 @@
         </div>
     </section>
 
-    <!-- Redesigned Signature Experience (Staggered Features) -->
-    <section class="py-section" id="amenities" style="background: #000;">
+    <!-- Classic Grid Signature Experience -->
+    <section class="sig-classic-section" id="amenities">
         <div class="container">
-            <div class="mb-5 pb-5">
-                <h5 class="section-tag reveal-from-bottom">SIGNATURE EXPERIENCE</h5>
-                <h2 class="section-title reveal-from-bottom">Where <span class="text-orange">Excellence</span> Is
-                    Standard</h2>
+            <div class="text-center mb-5 pb-4">
+                <h5 class="section-tag reveal-from-bottom"
+                    style="font-size: 0.9rem; letter-spacing: 4px; margin-bottom: 5px;">SIGNATURE EXPERIENCE</h5>
+                <h2 class="sig-classic-title-lg reveal-from-bottom" style="margin-bottom: 25px;">Standard</h2>
+                <p class="text-muted reveal-from-bottom mx-auto" style="max-width: 650px; font-size: 1.2rem;">Experience
+                    a workspace designed for ambitious creators and global teams, featuring unparalleled amenities and
+                    world-class design.</p>
             </div>
 
-            <!-- Feature 1: Culinary -->
-            <div class="row feature-row align-items-center mb-5 pb-5">
-                <div class="col-lg-6 mb-4 mb-lg-0 reveal-from-bottom">
-                    <div class="feature-img-container">
-                        <div class="feature-ring"></div>
-                        <div class="feature-img-wrap">
-                            <img src="assets/headq_amenities_bar.png" alt="Culinary Art">
+            <div class="row align-items-center">
+                <!-- Left: 2x2 Image Grid -->
+                <div class="col-lg-6 pe-lg-5 mb-5 mb-lg-0 reveal-from-bottom">
+                    <div class="sig-classic-grid">
+                        <div class="sig-classic-img-wrap"><img src="assets/office.png" alt="Workspace"
+                                class="sig-classic-img"></div>
+                        <div class="sig-classic-img-wrap"><img src="assets/lounge.png" alt="Lounge"
+                                class="sig-classic-img"></div>
+                        <div class="sig-classic-img-wrap"><img src="assets/pod.png" alt="Pod" class="sig-classic-img">
                         </div>
-                        <div class="feature-img-overlap overlap-right">
-                            <img src="assets/lounge.png" alt="Culinary Details">
+                        <div class="sig-classic-stat-box">
+                            <span class="sig-classic-stat-num">24/7</span>
+                            <span class="sig-classic-stat-text">Premium Access</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-5 offset-lg-1 reveal-from-bottom">
-                    <span class="bento-tag">The Lifestyle</span>
-                    <h3 class="bento-title text-white">Culinary Art</h3>
-                    <p class="bento-desc">Indulge in unlimited artisan coffee and wholesome snacks in our designer
-                        lounges, perfect for networking or refueling.</p>
-                    <a href="#membership" class="btn-capsule"
-                        style="background: rgba(255,255,255,0.15); border: none; font-size: 1.1rem; padding: 12px 12px 12px 30px;">
-                        View Access
-                        <div class="btn-icon" style="background: white;"><i class="fas fa-arrow-up text-dark"></i></div>
-                    </a>
-                </div>
-            </div>
 
-            <!-- Feature 2: Technology (Reverse) -->
-            <div class="row feature-row align-items-center mb-5 pb-5 flex-row-reverse">
-                <div class="col-lg-6 mb-4 mb-lg-0 reveal-from-bottom">
-                    <div class="feature-img-container">
-                        <div class="feature-ring"></div>
-                        <div class="feature-img-wrap">
-                            <img src="assets/hero_bg_hd.png" alt="Technology Infrastructure">
+                <!-- Right: Text Content -->
+                <div class="col-lg-6 reveal-from-bottom">
+                    <div class="sig-classic-features">
+                        <!-- Feature 1 -->
+                        <div class="sig-classic-feature">
+                            <div class="sig-classic-icon-box">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div>
+                                <span class="bento-tag mb-1 d-inline-block p-0 text-orange"
+                                    style="background:transparent; border:none; letter-spacing:1px; font-weight:700;">Community</span>
+                                <h3 class="sig-classic-feature-title mb-2">Social Synergy</h3>
+                                <p class="sig-classic-feature-desc">Connect with the elite creators of Kerala. Join a
+                                    vibrant collective that fosters growth and innovation through collaboration and
+                                    shared ambition.</p>
+                                <a href="#about" class="sig-classic-link">Join Community <i
+                                        class="fas fa-arrow-right"></i></a>
+                            </div>
                         </div>
-                        <div class="feature-img-overlap overlap-left">
-                            <img src="assets/pod.png" alt="Tech Hub">
+
+                        <!-- Feature 2 -->
+                        <div class="sig-classic-feature">
+                            <div class="sig-classic-icon-box">
+                                <i class="fas fa-mug-hot"></i>
+                            </div>
+                            <div>
+                                <span class="bento-tag mb-1 d-inline-block p-0 text-orange"
+                                    style="background:transparent; border:none; letter-spacing:1px; font-weight:700;">The
+                                    Lifestyle</span>
+                                <h3 class="sig-classic-feature-title mb-2">Culinary Art</h3>
+                                <p class="sig-classic-feature-desc">Indulge in unlimited artisan coffee and wholesome
+                                    snacks in our designer lounges, perfect for networking or refueling.</p>
+                                <a href="#membership" class="sig-classic-link">View Access <i
+                                        class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+
+                        <!-- Feature 3 -->
+                        <div class="sig-classic-feature">
+                            <div class="sig-classic-icon-box">
+                                <i class="fas fa-microchip"></i>
+                            </div>
+                            <div>
+                                <span class="bento-tag mb-1 d-inline-block p-0 text-orange"
+                                    style="background:transparent; border:none; letter-spacing:1px; font-weight:700;">Infrastructure</span>
+                                <h3 class="sig-classic-feature-title mb-2">Zero Friction Tech</h3>
+                                <p class="sig-classic-feature-desc">Fiber-optic reliability with 24/7 technical
+                                    concierge. We handle the hardware so you can build your legacy.</p>
+                                <a href="#membership" class="sig-classic-link">Explore Connectivity <i
+                                        class="fas fa-arrow-right"></i></a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-5 offset-lg-1 reveal-from-bottom">
-                    <span class="bento-tag">Infrastructure</span>
-                    <h3 class="bento-title text-white">Zero Friction Tech</h3>
-                    <p class="bento-desc">Fiber-optic reliability with 24/7 technical concierge. We handle the hardware
-                        so you can build the legacy.</p>
-                    <a href="#membership" class="btn-capsule"
-                        style="background: rgba(255,255,255,0.15); border: none; font-size: 1.1rem; padding: 12px 12px 12px 30px;">
-                        Explore Connectivity
-                        <div class="btn-icon" style="background: white;"><i class="fas fa-arrow-up text-dark"></i></div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Feature 3: Social -->
-            <div class="row feature-row align-items-center">
-                <div class="col-lg-6 mb-4 mb-lg-0 reveal-from-bottom">
-                    <div class="feature-img-container">
-                        <div class="feature-ring"></div>
-                        <div class="feature-img-wrap">
-                            <img src="assets/lounge.png" alt="Social Synergy">
-                        </div>
-                        <div class="feature-img-overlap overlap-right">
-                            <img src="assets/office.png" alt="Community Base">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-5 offset-lg-1 reveal-from-bottom">
-                    <span class="bento-tag">Community</span>
-                    <h3 class="bento-title text-white">Social Synergy</h3>
-                    <p class="bento-desc">Connect with the elite creators of Kerala. Join a vibrant collective that
-                        fosters growth and innovation through collaboration.</p>
-                    <a href="#about" class="btn-capsule"
-                        style="background: rgba(255,255,255,0.15); border: none; font-size: 1.1rem; padding: 12px 12px 12px 30px;">
-                        Join Community
-                        <div class="btn-icon" style="background: white;"><i class="fas fa-arrow-up text-dark"></i></div>
-                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Redesigned Testimonial Slider Gallery (Green Theme) -->
-    <section class="testimonial-section py-5 my-5 overflow-hidden">
+    <!-- Testimonials Section -->
+    <section class="testimonial-section py-5 my-3 overflow-hidden" style="background: #050505;">
         <div class="container-fluid px-4">
             <div class="text-center mb-5 reveal-from-bottom">
-                <h5 class="section-tag" style="color: #25D366;">COMMUNITY VOICES</h5>
-                <h2 class="section-title mb-0">What Our <span style="color: #25D366;">Members</span> Say</h2>
+                <h5 class="section-tag">COMMUNITY VOICES</h5>
+                <h2 class="section-title mb-0">What Our <span class="text-orange">Members</span> Say</h2>
             </div>
-
             <div class="testimonial-slider-container pb-4 reveal-from-bottom">
                 <div class="testimonial-track d-flex gap-4">
-                    <!-- Review 1 -->
                     <div class="testimonial-mini-card">
-                        <div class="quote-icon mb-3">
-                            <i class="fas fa-quote-left fs-4 opacity-50" style="color: #25D366;"></i>
-                        </div>
-                        <p class="testimonial-text-small mb-4">
-                            "I've been a member of this coworking space for a few months now, and I have to say that the
-                            community here is truly exceptional! From the moment I walked in, I was made to feel welcome
-                            and part of the team."
-                        </p>
-                        <div class="d-flex align-items-center gap-3 mt-auto">
-                            <div class="author-avatar">
-                                <div class="avatar-circle">MA</div>
-                            </div>
-                            <div class="text-start">
-                                <h6 class="testimonial-author-small mb-1 text-white">Mohammad Ameer</h6>
-                                <p class="text-muted small mb-0"><i class="fas fa-check-circle text-success me-1"></i>
-                                    Verified Member Since 2023</p>
-                            </div>
+                        <div class="card-stars-pill"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <h3 class="card-title-neon" style="color: #fff;">Awesome Work!</h3>
+                        <p class="testimonial-text-small mb-4" style="color: rgba(255,255,255,0.7);">"I've been a member
+                            of this coworking space for a few
+                            months now, and I have to say that the community here is truly exceptional! From the moment
+                            I walked in, I was made to feel welcome and part of the team."</p>
+                        <div class="mt-auto">
+                            <h6 class="testimonial-author-small mb-1 text-white">Mohammad Ameer</h6>
+                            <p class="text-muted small mb-0"><i
+                                    class="fas fa-check-circle text-orange me-1"></i>Verified Member Since 2023</p>
                         </div>
                     </div>
-
-                    <!-- Review 2 -->
                     <div class="testimonial-mini-card">
-                        <div class="quote-icon mb-3">
-                            <i class="fas fa-quote-left fs-4 opacity-50" style="color: #25D366;"></i>
-                        </div>
-                        <p class="testimonial-text-small mb-4">
-                            "The high-speed internet and ergonomic chairs have completely transformed my productivity.
-                            It's the perfect environment for focused deep work."
+                        <div class="card-stars-pill"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <h3 class="card-title-neon" style="color: #fff;">Awesome Work!</h3>
+                        <p class="testimonial-text-small mb-4" style="color: rgba(255,255,255,0.7);">"The high-speed
+                            internet and ergonomic chairs have
+                            completely transformed my productivity. It's the perfect environment for focused deep work."
                         </p>
-                        <div class="d-flex align-items-center gap-3 mt-auto">
-                            <div class="author-avatar">
-                                <div class="avatar-circle">SJ</div>
-                            </div>
-                            <div class="text-start">
-                                <h6 class="testimonial-author-small mb-1 text-white">Sarah Joseph</h6>
-                                <p class="text-muted small mb-0"><i class="fas fa-check-circle text-success me-1"></i>
-                                    Freelance Designer</p>
-                            </div>
+                        <div class="mt-auto">
+                            <h6 class="testimonial-author-small mb-1 text-white">Sarah Joseph</h6>
+                            <p class="text-muted small mb-0"><i
+                                    class="fas fa-check-circle text-orange me-1"></i>Freelance Designer</p>
                         </div>
                     </div>
-
-                    <!-- Review 3 -->
                     <div class="testimonial-mini-card">
-                        <div class="quote-icon mb-3">
-                            <i class="fas fa-quote-left fs-4 opacity-50" style="color: #25D366;"></i>
-                        </div>
-                        <p class="testimonial-text-small mb-4">
-                            "I moved my startup team here. The private studio suites give us exactly the privacy we need
-                            while still being connected to a vibrant network of founders."
-                        </p>
-                        <div class="d-flex align-items-center gap-3 mt-auto">
-                            <div class="author-avatar">
-                                <div class="avatar-circle">RK</div>
-                            </div>
-                            <div class="text-start">
-                                <h6 class="testimonial-author-small mb-1 text-white">Rahul Krishnan</h6>
-                                <p class="text-muted small mb-0"><i class="fas fa-check-circle text-success me-1"></i>
-                                    Tech Founder</p>
-                            </div>
+                        <div class="card-stars-pill"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <h3 class="card-title-neon" style="color: #fff;">Awesome Work!</h3>
+                        <p class="testimonial-text-small mb-4" style="color: rgba(255,255,255,0.7);">"I moved my startup
+                            team here. The private studio suites
+                            give us exactly the privacy we need while still being connected to a vibrant network of
+                            founders."</p>
+                        <div class="mt-auto">
+                            <h6 class="testimonial-author-small mb-1 text-white">Rahul Krishnan</h6>
+                            <p class="text-muted small mb-0"><i class="fas fa-check-circle text-orange me-1"></i>Tech
+                                Founder</p>
                         </div>
                     </div>
-
-                    <!-- Review 4 -->
                     <div class="testimonial-mini-card">
-                        <div class="quote-icon mb-3">
-                            <i class="fas fa-quote-left fs-4 opacity-50" style="color: #25D366;"></i>
-                        </div>
-                        <p class="testimonial-text-small mb-4">
-                            "The unlimited artisan coffee is a lifesaver, and the networking events have helped me land
-                            two major clients just in the last month alone! Highly recommended."
-                        </p>
-                        <div class="d-flex align-items-center gap-3 mt-auto">
-                            <div class="author-avatar">
-                                <div class="avatar-circle">PN</div>
-                            </div>
-                            <div class="text-start">
-                                <h6 class="testimonial-author-small mb-1 text-white">Priya Nair</h6>
-                                <p class="text-muted small mb-0"><i class="fas fa-check-circle text-success me-1"></i>
-                                    Marketing Consultant</p>
-                            </div>
+                        <div class="card-stars-pill"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <h3 class="card-title-neon" style="color: #fff;">Awesome Work!</h3>
+                        <p class="testimonial-text-small mb-4" style="color: rgba(255,255,255,0.7);">"The unlimited
+                            artisan coffee is a lifesaver, and the
+                            networking events have helped me land two major clients just in the last month alone! Highly
+                            recommended."</p>
+                        <div class="mt-auto">
+                            <h6 class="testimonial-author-small mb-1 text-white">Priya Nair</h6>
+                            <p class="text-muted small mb-0"><i
+                                    class="fas fa-check-circle text-orange me-1"></i>Marketing Consultant</p>
                         </div>
                     </div>
-
-                    <!-- Review 5 -->
                     <div class="testimonial-mini-card">
-                        <div class="quote-icon mb-3">
-                            <i class="fas fa-quote-left fs-4 opacity-50" style="color: #25D366;"></i>
-                        </div>
-                        <p class="testimonial-text-small mb-4">
-                            "It feels less like an office and more like a premium lounge. The 24/7 access means I can
-                            work on international time zones without any friction at all."
-                        </p>
-                        <div class="d-flex align-items-center gap-3 mt-auto">
-                            <div class="author-avatar">
-                                <div class="avatar-circle">TM</div>
-                            </div>
-                            <div class="text-start">
-                                <h6 class="testimonial-author-small mb-1 text-white">Tariq Menon</h6>
-                                <p class="text-muted small mb-0"><i class="fas fa-check-circle text-success me-1"></i>
-                                    Remote Developer</p>
-                            </div>
+                        <div class="card-stars-pill"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <h3 class="card-title-neon" style="color: #fff;">Awesome Work!</h3>
+                        <p class="testimonial-text-small mb-4" style="color: rgba(255,255,255,0.7);">"It feels less like
+                            an office and more like a premium
+                            lounge. The 24/7 access means I can work on international time zones without any friction at
+                            all."</p>
+                        <div class="mt-auto">
+                            <h6 class="testimonial-author-small mb-1 text-white">Tariq Menon</h6>
+                            <p class="text-muted small mb-0"><i class="fas fa-check-circle text-orange me-1"></i>Remote
+                                Developer</p>
                         </div>
                     </div>
-
-                    <!-- DUPLICATED SET FOR INFINITE SCROLL -->
-                    <!-- Review 1 -->
+                    <!-- Duplicate set for infinite scroll -->
                     <div class="testimonial-mini-card">
-                        <div class="quote-icon mb-3">
-                            <i class="fas fa-quote-left fs-4 opacity-50" style="color: #25D366;"></i>
-                        </div>
-                        <p class="testimonial-text-small mb-4">
-                            "I've been a member of this coworking space for a few months now, and I have to say that the
-                            community here is truly exceptional! From the moment I walked in, I was made to feel welcome
-                            and part of the team."
-                        </p>
-                        <div class="d-flex align-items-center gap-3 mt-auto">
-                            <div class="author-avatar">
-                                <div class="avatar-circle">MA</div>
-                            </div>
-                            <div class="text-start">
-                                <h6 class="testimonial-author-small mb-1 text-white">Mohammad Ameer</h6>
-                                <p class="text-muted small mb-0"><i class="fas fa-check-circle text-success me-1"></i>
-                                    Verified Member Since 2023</p>
-                            </div>
+                        <div class="card-stars-pill"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <h3 class="card-title-neon" style="color: #fff;">Awesome Work!</h3>
+                        <p class="testimonial-text-small mb-4" style="color: rgba(255,255,255,0.7);">"I've been a member
+                            of this coworking space for a few
+                            months now, and I have to say that the community here is truly exceptional!"</p>
+                        <div class="mt-auto">
+                            <h6 class="testimonial-author-small mb-1 text-white">Mohammad Ameer</h6>
+                            <p class="text-muted small mb-0"><i
+                                    class="fas fa-check-circle text-orange me-1"></i>Verified Member Since 2023</p>
                         </div>
                     </div>
-                    <!-- Review 2 -->
                     <div class="testimonial-mini-card">
-                        <div class="quote-icon mb-3">
-                            <i class="fas fa-quote-left fs-4 opacity-50" style="color: #25D366;"></i>
-                        </div>
-                        <p class="testimonial-text-small mb-4">
-                            "The high-speed internet and ergonomic chairs have completely transformed my productivity.
-                            It's the perfect environment for focused deep work."
-                        </p>
-                        <div class="d-flex align-items-center gap-3 mt-auto">
-                            <div class="author-avatar">
-                                <div class="avatar-circle">SJ</div>
-                            </div>
-                            <div class="text-start">
-                                <h6 class="testimonial-author-small mb-1 text-white">Sarah Joseph</h6>
-                                <p class="text-muted small mb-0"><i class="fas fa-check-circle text-success me-1"></i>
-                                    Freelance Designer</p>
-                            </div>
+                        <div class="card-stars-pill"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <h3 class="card-title-neon" style="color: #fff;">Awesome Work!</h3>
+                        <p class="testimonial-text-small mb-4" style="color: rgba(255,255,255,0.7);">"The high-speed
+                            internet and ergonomic chairs have
+                            completely transformed my productivity."</p>
+                        <div class="mt-auto">
+                            <h6 class="testimonial-author-small mb-1 text-white">Sarah Joseph</h6>
+                            <p class="text-muted small mb-0"><i
+                                    class="fas fa-check-circle text-orange me-1"></i>Freelance Designer</p>
                         </div>
                     </div>
-                    <!-- Review 3 -->
                     <div class="testimonial-mini-card">
-                        <div class="quote-icon mb-3">
-                            <i class="fas fa-quote-left fs-4 opacity-50" style="color: #25D366;"></i>
-                        </div>
-                        <p class="testimonial-text-small mb-4">
-                            "I moved my startup team here. The private studio suites give us exactly the privacy we need
-                            while still being connected to a vibrant network of founders."
-                        </p>
-                        <div class="d-flex align-items-center gap-3 mt-auto">
-                            <div class="author-avatar">
-                                <div class="avatar-circle">RK</div>
-                            </div>
-                            <div class="text-start">
-                                <h6 class="testimonial-author-small mb-1 text-white">Rahul Krishnan</h6>
-                                <p class="text-muted small mb-0"><i class="fas fa-check-circle text-success me-1"></i>
-                                    Tech Founder</p>
-                            </div>
+                        <div class="card-stars-pill"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <h3 class="card-title-neon" style="color: #fff;">Awesome Work!</h3>
+                        <p class="testimonial-text-small mb-4" style="color: rgba(255,255,255,0.7);">"I moved my startup
+                            team here. The private studio suites
+                            give us exactly the privacy we need."</p>
+                        <div class="mt-auto">
+                            <h6 class="testimonial-author-small mb-1 text-white">Rahul Krishnan</h6>
+                            <p class="text-muted small mb-0"><i class="fas fa-check-circle text-orange me-1"></i>Tech
+                                Founder</p>
                         </div>
                     </div>
-                    <!-- Review 4 -->
                     <div class="testimonial-mini-card">
-                        <div class="quote-icon mb-3">
-                            <i class="fas fa-quote-left fs-4 opacity-50" style="color: #25D366;"></i>
-                        </div>
-                        <p class="testimonial-text-small mb-4">
-                            "The unlimited artisan coffee is a lifesaver, and the networking events have helped me land
-                            two major clients just in the last month alone! Highly recommended."
-                        </p>
-                        <div class="d-flex align-items-center gap-3 mt-auto">
-                            <div class="author-avatar">
-                                <div class="avatar-circle">PN</div>
-                            </div>
-                            <div class="text-start">
-                                <h6 class="testimonial-author-small mb-1 text-white">Priya Nair</h6>
-                                <p class="text-muted small mb-0"><i class="fas fa-check-circle text-success me-1"></i>
-                                    Marketing Consultant</p>
-                            </div>
+                        <div class="card-stars-pill"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <h3 class="card-title-neon" style="color: #fff;">Awesome Work!</h3>
+                        <p class="testimonial-text-small mb-4" style="color: rgba(255,255,255,0.7);">"The unlimited
+                            artisan coffee is a lifesaver, and the
+                            networking events have helped me land two major clients!"</p>
+                        <div class="mt-auto">
+                            <h6 class="testimonial-author-small mb-1 text-white">Priya Nair</h6>
+                            <p class="text-muted small mb-0"><i
+                                    class="fas fa-check-circle text-orange me-1"></i>Marketing Consultant</p>
                         </div>
                     </div>
-                    <!-- Review 5 -->
                     <div class="testimonial-mini-card">
-                        <div class="quote-icon mb-3">
-                            <i class="fas fa-quote-left fs-4 opacity-50" style="color: #25D366;"></i>
-                        </div>
-                        <p class="testimonial-text-small mb-4">
-                            "It feels less like an office and more like a premium lounge. The 24/7 access means I can
-                            work on international time zones without any friction at all."
+                        <div class="card-stars-pill"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <h3 class="card-title-neon" style="color: #fff;">Awesome Work!</h3>
+                        <p class="testimonial-text-small mb-4" style="color: rgba(255,255,255,0.7);">"It feels less like
+                            an office and more like a premium
+                            lounge. The 24/7 access means I can work on international time zones without any friction."
                         </p>
-                        <div class="d-flex align-items-center gap-3 mt-auto">
-                            <div class="author-avatar">
-                                <div class="avatar-circle">TM</div>
-                            </div>
-                            <div class="text-start">
-                                <h6 class="testimonial-author-small mb-1 text-white">Tariq Menon</h6>
-                                <p class="text-muted small mb-0"><i class="fas fa-check-circle text-success me-1"></i>
-                                    Remote Developer</p>
-                            </div>
+                        <div class="mt-auto">
+                            <h6 class="testimonial-author-small mb-1 text-white">Tariq Menon</h6>
+                            <p class="text-muted small mb-0"><i class="fas fa-check-circle text-orange me-1"></i>Remote
+                                Developer</p>
                         </div>
                     </div>
                 </div>
@@ -688,60 +636,42 @@
                 <h5 class="section-tag reveal-from-bottom">FAQ</h5>
                 <h2 class="section-title reveal-from-bottom">Everything you need to know</h2>
             </div>
-
             <div class="faq-container">
                 <div class="faq-item reveal-from-bottom">
                     <div class="faq-header">
-                        <h5 class="mb-0">What is coworking?</h5>
-                        <i class="fas fa-chevron-down"></i>
+                        <h5 class="mb-0">What is coworking?</h5><i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="faq-content">
-                        Coworking is a style of work that involves a shared workplace, often an office, and independent
-                        activity. It's about community and collaboration.
-                    </div>
+                    <div class="faq-content">Coworking is a style of work that involves a shared workplace, often an
+                        office, and independent activity. It's about community and collaboration.</div>
                 </div>
-
                 <div class="faq-item reveal-from-bottom">
                     <div class="faq-header">
-                        <h5 class="mb-0">What services are offered?</h5>
-                        <i class="fas fa-chevron-down"></i>
+                        <h5 class="mb-0">What services are offered?</h5><i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="faq-content">
-                        We offer shared workspaces, private offices, virtual offices, high-speed internet, and unlimited
-                        specialty coffee.
-                    </div>
+                    <div class="faq-content">We offer shared workspaces, private offices, virtual offices, high-speed
+                        internet, and unlimited specialty coffee.</div>
                 </div>
-
                 <div class="faq-item reveal-from-bottom">
                     <div class="faq-header">
-                        <h5 class="mb-0">How to book space?</h5>
-                        <i class="fas fa-chevron-down"></i>
+                        <h5 class="mb-0">How to book space?</h5><i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="faq-content">
-                        You can book through our website, mobile app, or by visiting our Kochi and Kozhikode locations
-                        directly.
-                    </div>
+                    <div class="faq-content">You can book through our website, mobile app, or by visiting our Kochi and
+                        Kozhikode locations directly.</div>
                 </div>
-
                 <div class="faq-item reveal-from-bottom">
                     <div class="faq-header">
-                        <h5 class="mb-0">What type of spaces are we talking about?</h5>
-                        <i class="fas fa-chevron-down"></i>
+                        <h5 class="mb-0">What type of spaces are we talking about?</h5><i
+                            class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="faq-content">
-                        We have flexible desks, private studio suites, soundproof pods, and high-tech boardrooms.
-                    </div>
+                    <div class="faq-content">We have flexible desks, private studio suites, soundproof pods, and
+                        high-tech boardrooms.</div>
                 </div>
-
                 <div class="faq-item reveal-from-bottom">
                     <div class="faq-header">
-                        <h5 class="mb-0">Can I host an event at HeadQ?</h5>
-                        <i class="fas fa-chevron-down"></i>
+                        <h5 class="mb-0">Can I host an event at HeadQ?</h5><i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="faq-content">
-                        Yes, we have dedicated event halls perfect for product launches, workshops, and networking
-                        mixers.
-                    </div>
+                    <div class="faq-content">Yes, we have dedicated event halls perfect for product launches, workshops,
+                        and networking mixers.</div>
                 </div>
             </div>
         </div>
@@ -752,7 +682,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mb-5">
-                    <span class="logo-text text-white">HeadQ</span>
+                    <img src="assets/logo/logo.png" alt="HeadQ" style="height: 50px; width: auto; object-fit: contain;">
                     <p class="mt-4 pe-lg-5 text-white">Premium coworking spaces designed for creators, culture, and
                         community.</p>
                     <div class="mt-4">
@@ -776,12 +706,18 @@
                 <div class="col-lg-4">
                     <h6 class="text-white mb-4 fw-bold">Stay Connected</h6>
                     <div class="d-flex gap-3 mb-4">
-                        <a href="#" class="fs-4"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="fs-4"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="fs-4"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="fs-4"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.facebook.com/share/1GK1qBV1BL/" target="_blank" class="fs-4"><i
+                                class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/headq_coworking?igsh=MWE2cmFmbzh3OWcyag==" target="_blank"
+                            class="fs-4"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/headq-coworking-space-824828200" target="_blank"
+                            class="fs-4"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://wa.me/919037115652?text=Hello%20I%20want%20more%20information" class="fs-4"
+                            target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
                     </div>
-                    <p class="text-muted small">Special offer valid only for 3 months. T&C Apply.</p>
+                    <p class="text-muted small">Special offer valid only for 3 months. T&amp;C Apply.</p>
                 </div>
             </div>
             <div class="mt-5 pt-5 border-top border-white border-opacity-5 text-center text-muted small">

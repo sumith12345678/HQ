@@ -3,6 +3,20 @@ document.addEventListener('DOMContentLoaded', () => {
     initGSAPAnimations();
     initNavbarScroll();
     initHeroSlider();
+
+    // Handle cross-page anchor links (e.g., landing.html#faq loaded from another page)
+    if (window.location.hash) {
+        setTimeout(() => {
+            const targetElement = document.querySelector(window.location.hash);
+            if (targetElement) {
+                gsap.to(window, {
+                    duration: 1.2,
+                    scrollTo: { y: targetElement, offsetY: 70 },
+                    ease: "power3.out"
+                });
+            }
+        }, 150); // Minimal delay to instantly trigger scroll after paint
+    }
 });
 
 // --- Hero Slider ---
@@ -98,19 +112,27 @@ function initNavbarScroll() {
         }
     });
 
-    // Smooth Scroll for Navigation Links
+    // Smooth Scroll for Navigation Links (Only strictly internal hash links)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault();
             const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                gsap.to(window, {
-                    duration: 1,
-                    scrollTo: { y: targetElement, offsetY: 70 },
-                    ease: "power3.inOut"
-                });
+            
+            // Only intercept if it's purely a hash link meant for the current page
+            if (targetId && targetId.startsWith('#')) {
+                if (targetId === '#') {
+                    e.preventDefault();
+                    return;
+                }
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    gsap.to(window, {
+                        duration: 1,
+                        scrollTo: { y: targetElement, offsetY: 70 },
+                        ease: "power3.inOut"
+                    });
+                }
             }
         });
     });
