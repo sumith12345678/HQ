@@ -141,24 +141,21 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             cursor: pointer;
             background: #111;
-            /* Performance boosts for scroll lag */
-            contain: paint;
-            transform: translateZ(0);
+            /* Modern scroll optimization: completely skip off-screen rendering */
+            content-visibility: auto;
+            contain-intrinsic-size: 240px;
         }
 
         .gallery-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            /* Hardware acceleration */
-            will-change: transform;
-            backface-visibility: hidden;
+            transition: transform 0.4s ease-out;
             background: #050505;
         }
 
         .gallery-card:hover img {
-            transform: scale(1.08);
+            transform: scale(1.05);
         }
 
         .card-overlay {
@@ -230,14 +227,14 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const allWebpImages = [
-                'assets/hq-images-webp/DSC03950.webp',
-                'assets/hq-images-webp/DSC03957.webp',
-                'assets/hq-images-webp/DSC03993.webp',
-                'assets/hq-images-webp/DSC04009.webp',
-                'assets/hq-images-webp/DSC04020.webp',
-                'assets/hq-images-webp/DSC04024.webp',
-                'assets/hq-images-webp/DSC04073.webp',
-                'assets/hq-images-webp/DSC04074.webp'
+                'assets/hq-images-optimized/DSC03950.webp',
+                'assets/hq-images-optimized/DSC03957.webp',
+                'assets/hq-images-optimized/DSC03993.webp',
+                'assets/hq-images-optimized/DSC04009.webp',
+                'assets/hq-images-optimized/DSC04020.webp',
+                'assets/hq-images-optimized/DSC04024.webp',
+                'assets/hq-images-optimized/DSC04073.webp',
+                'assets/hq-images-optimized/DSC04074.webp'
             ];
 
             // Generate array of exactly 12 images
