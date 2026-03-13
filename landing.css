@@ -527,7 +527,7 @@ body {
 .marquee-content {
     display: inline-flex;
     white-space: nowrap;
-    animation: scrollMarquee 35s linear infinite;
+    animation: scrollMarquee 15s linear infinite;
     padding-left: 20px;
 }
 

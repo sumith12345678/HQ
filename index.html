@@ -306,32 +306,50 @@
         </div>
     </section>
 
-    <!-- Auto-Scrolling Client Logo Marquee (Green Theme) -->
-    <div class="client-marquee-section">
+    <!-- Auto-Scrolling Partner Logo Marquee -->
+    <div class="client-marquee-section py-4" style="background: #fdfdfd; border-top: 1px solid rgba(0,0,0,0.05); border-bottom: 1px solid rgba(0,0,0,0.05); box-shadow: inset 0 0 40px rgba(0,0,0,0.02);">
+        <style>
+            .partner-logo-img {
+                height: 90px; /* Further increased height */
+                width: auto;
+                object-fit: contain;
+                opacity: 0.95;
+                transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            .partner-logo-img:hover {
+                transform: scale(1.08);
+            }
+            @media (max-width: 768px) {
+                .partner-logo-img { height: 60px; }
+            }
+        </style>
         <div class="marquee-wrapper">
             <div class="marquee-content d-flex align-items-center">
-                <span class="trust-badge me-5">TRUSTED BY LEADERS:</span>
-                <span class="logo-text mx-4">ORACLE</span>
-                <span class="logo-text mx-4">META</span>
-                <span class="logo-text mx-4">STRIPE</span>
-                <span class="logo-text mx-4">ZAPIER</span>
-                <span class="logo-text mx-4">AIRBNB</span>
+                <span class="trust-badge me-5 fw-bolder" style="letter-spacing: 2px; color: #111;">TRUSTED BY LEADERS:</span>
+                <img src="assets/partners/benchy.png" alt="Benchy" class="partner-logo-img mx-4">
+                <img src="assets/partners/freshtohome.png" alt="FreshToHome" class="partner-logo-img mx-4">
+                <img src="assets/partners/india.png" alt="India" class="partner-logo-img mx-4">
+                <img src="assets/partners/luxart.png" alt="Luxart" class="partner-logo-img mx-4">
+                <img src="assets/partners/medi.png" alt="Medi" class="partner-logo-img mx-4">
+                <img src="assets/partners/sinontech.png" alt="SinonTech" class="partner-logo-img mx-4">
 
                 <!-- Duplicate for seamless loop -->
-                <span class="trust-badge ms-5 me-5">TRUSTED BY LEADERS:</span>
-                <span class="logo-text mx-4">ORACLE</span>
-                <span class="logo-text mx-4">META</span>
-                <span class="logo-text mx-4">STRIPE</span>
-                <span class="logo-text mx-4">ZAPIER</span>
-                <span class="logo-text mx-4">AIRBNB</span>
+                <span class="trust-badge ms-5 me-5 fw-bolder" style="letter-spacing: 2px; color: #111;">TRUSTED BY LEADERS:</span>
+                <img src="assets/partners/benchy.png" alt="Benchy" class="partner-logo-img mx-4">
+                <img src="assets/partners/freshtohome.png" alt="FreshToHome" class="partner-logo-img mx-4">
+                <img src="assets/partners/india.png" alt="India" class="partner-logo-img mx-4">
+                <img src="assets/partners/luxart.png" alt="Luxart" class="partner-logo-img mx-4">
+                <img src="assets/partners/medi.png" alt="Medi" class="partner-logo-img mx-4">
+                <img src="assets/partners/sinontech.png" alt="SinonTech" class="partner-logo-img mx-4">
 
                 <!-- Triple duplicate for ultra-wide screens -->
-                <span class="trust-badge ms-5 me-5">TRUSTED BY LEADERS:</span>
-                <span class="logo-text mx-4">ORACLE</span>
-                <span class="logo-text mx-4">META</span>
-                <span class="logo-text mx-4">STRIPE</span>
-                <span class="logo-text mx-4">ZAPIER</span>
-                <span class="logo-text mx-4">AIRBNB</span>
+                <span class="trust-badge ms-5 me-5 fw-bolder" style="letter-spacing: 2px; color: #111;">TRUSTED BY LEADERS:</span>
+                <img src="assets/partners/benchy.png" alt="Benchy" class="partner-logo-img mx-4">
+                <img src="assets/partners/freshtohome.png" alt="FreshToHome" class="partner-logo-img mx-4">
+                <img src="assets/partners/india.png" alt="India" class="partner-logo-img mx-4">
+                <img src="assets/partners/luxart.png" alt="Luxart" class="partner-logo-img mx-4">
+                <img src="assets/partners/medi.png" alt="Medi" class="partner-logo-img mx-4">
+                <img src="assets/partners/sinontech.png" alt="SinonTech" class="partner-logo-img mx-4">
             </div>
         </div>
     </div>
