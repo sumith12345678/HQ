@@ -18,241 +18,205 @@
     <link rel="stylesheet" href="landing.css">
 
     <style>
-        /* ── Body scrollable ── */
+        /* ── Base ── */
         body {
             font-family: 'Outfit', sans-serif;
             background: #050505;
             color: #fff;
-            overflow-x: hidden;
         }
 
-        /* ── HERO (restored) ── */
+        /* ── HERO BANNER ── */
         .gallery-hero-premium {
-            min-height: 100vh;
-            background: url('assets/backgrounds/hero_bg_hd.png') center / cover no-repeat;
+            height: 60vh;
+            min-height: 400px;
+            background: url('assets/backgrounds/hero_bg_hd.png') center / cover no-repeat fixed;
             display: flex; align-items: center; justify-content: center;
-            position: relative; overflow: hidden;
+            position: relative;
         }
         .hero-overlay {
             position: absolute; inset: 0;
-            background: linear-gradient(180deg, rgba(7,7,7,0.4) 0%, rgba(7,7,7,0.95) 100%);
+            background: linear-gradient(180deg, rgba(5,5,5,0.3) 0%, #050505 100%);
         }
-        .section-tag {
-            font-size: 0.85rem; font-weight: 600;
-            text-transform: uppercase; letter-spacing: 3px;
-            background: rgba(249,115,22,0.15);
-            display: inline-block; padding: 6px 18px;
-            border-radius: 40px; color: var(--primary-orange, #f97316);
-        }
-        .scroll-indicator { text-align: center; }
-        .scroll-indicator .mouse {
-            width: 28px; height: 44px;
-            border: 2px solid rgba(255,255,255,0.5);
-            border-radius: 20px; position: relative; margin: 0 auto;
-        }
-        .scroll-indicator .mouse::before {
-            content: ''; position: absolute;
-            width: 4px; height: 8px;
-            background: rgba(255,255,255,0.7);
-            border-radius: 2px; left: 50%; transform: translateX(-50%);
-            top: 6px; animation: scrollWheel 1.8s ease-in-out infinite;
-        }
-        @keyframes scrollWheel {
-            0%   { transform: translateX(-50%) translateY(0); opacity: 1; }
-            100% { transform: translateX(-50%) translateY(14px); opacity: 0; }
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700; letter-spacing: -1px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* ── INTERACTIVE GALLERY SECTION ── */
-        .gallery-interactive-section {
+        /* ── MASONRY GRID ── */
+        .gallery-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 24px 100px;
+        }
+
+        .masonry-grid {
+            column-count: 3;
+            column-gap: 24px;
+        }
+
+        @media (max-width: 992px) {
+            .masonry-grid { column-count: 2; }
+        }
+
+        @media (max-width: 576px) {
+            .masonry-grid { column-count: 1; }
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 24px;
             position: relative;
-            height: 100vh;
+            border-radius: 12px;
             overflow: hidden;
-            background: #050505;
+            cursor: pointer;
+            background: #111;
+            /* Premium subtle shadow */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            /* Hardware acceleration for smooth hover */
+            transform: translateZ(0); 
         }
-        /* Top label */
-        .gallery-section-label {
-            position: absolute; top: 24px; left: 50%;
-            transform: translateX(-50%); z-index: 200;
-            display: flex; gap: 32px; align-items: center;
-        }
-        .gallery-section-label span {
-            color: rgba(255,255,255,0.35);
-            font-size: 11px; font-weight: 600;
-            letter-spacing: 3px; text-transform: uppercase;
-        }
-        .gallery-section-label span.active { color: #f97316; }
 
-        /* Viewport canvas */
-        #viewport {
-            position: absolute; inset: 0;
-            overflow: hidden; z-index: 1; opacity: 0;
+        .masonry-item img {
+            width: 100%;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        #canvasWrapper {
-            position: absolute; top: 0; left: 0;
-            transform-origin: 0 0; will-change: transform;
-        }
-        #gridContainer { position: relative; }
 
-        .grid-item {
+        /* Hover Overlay */
+        .item-overlay {
             position: absolute;
-            width: 300px; height: 300px;
-            background: #111; border-radius: 10px;
-            overflow: hidden; cursor: pointer;
-            transition: opacity 0.5s ease;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px 24px;
+            transition: opacity 0.4s ease;
         }
-        .grid-item.out-of-view { opacity: 0.07 !important; }
-        .grid-item img {
-            width: 100%; height: 100%;
-            object-fit: cover; display: block;
+
+        .masonry-item:hover .item-overlay {
+            opacity: 1;
+        }
+
+        .masonry-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .item-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #f97316;
+            margin-bottom: 8px;
+            transform: translateY(15px);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .item-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #fff;
+            margin: 0;
+            transform: translateY(15px);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
+        }
+
+        .masonry-item:hover .item-tag,
+        .masonry-item:hover .item-title {
+            transform: translateY(0);
+        }
+
+        /* ── LIGHTBOX ── */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(5,5,5,0.98);
+            z-index: 999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
             pointer-events: none;
-            transition: transform 0.5s ease;
+            transition: opacity 0.3s ease;
+            padding: 40px;
         }
-        .grid-item:hover img { transform: scale(1.07); }
 
-        /* ── Split screen lightbox ── */
-        #splitScreenContainer {
-            position: fixed; inset: 0;
-            display: flex; z-index: 9000;
-            opacity: 0; pointer-events: none;
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: all;
         }
-        #splitScreenContainer.active { opacity: 1; pointer-events: all; }
-        #splitLeft {
-            width: 58vw; height: 100vh;
-            background: rgba(0,0,0,0.7);
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; position: relative;
-        }
-        #splitRight {
-            width: 42vw; height: 100vh;
-            background: rgba(6,6,6,0.97);
-            border-left: 1px solid rgba(255,255,255,0.06);
-            display: flex; flex-direction: column; justify-content: center;
-            padding: 60px 48px; position: relative;
-        }
-        #zoomTarget { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
 
-        .panel-tag {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: rgba(249,115,22,0.1);
-            border: 1px solid rgba(249,115,22,0.25);
-            border-radius: 50px; padding: 7px 18px;
-            color: #f97316; font-size: 11px; font-weight: 700;
-            letter-spacing: 2px; text-transform: uppercase;
-            margin-bottom: 22px; width: fit-content;
+        .lightbox img {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transform: scale(0.95);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        #imageSlideNumber span {
-            display: block; color: rgba(255,255,255,0.35);
-            font-size: 12px; font-weight: 600; letter-spacing: 3px;
-            text-transform: uppercase; margin-bottom: 10px;
-        }
-        #imageSlideTitle h1 {
-            color: #fff; font-size: 36px; font-weight: 700;
-            letter-spacing: -1px; line-height: 1.2; margin: 0 0 18px;
-        }
-        .desc-text {
-            color: rgba(255,255,255,0.5);
-            font-size: 15px; font-weight: 300; line-height: 1.75;
-            max-width: 320px;
-        }
-        #imageTitleOverlay { opacity: 0; }
 
-        /* Close btn */
-        #closeButton {
-            position: fixed; top: 50%; right: 22px;
-            width: 50px; height: 50px;
-            background: #f97316; border: none; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; z-index: 9100;
-            opacity: 0; pointer-events: none;
-            transform: translate(20px, -50%);
-            transition: background 0.2s, transform 0.2s;
+        .lightbox.active img {
+            transform: scale(1);
         }
-        #closeButton.active { pointer-events: all; }
-        #closeButton:hover { background: #ea580c; }
-        #closeButton svg { transform: rotate(180deg); }
 
-        /* Scaling overlay (Flip clone) */
-        .scaling-image-overlay {
-            position: fixed; z-index: 8500;
-            pointer-events: none; will-change: transform;
-            border-radius: 10px; overflow: hidden;
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 18px;
         }
-        .scaling-image-overlay img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* Controls */
-        #controlsContainer {
-            position: absolute; bottom: 20px; left: 50%;
+        .lightbox-close:hover {
+            background: #f97316;
+            border-color: #f97316;
+        }
+
+        .lightbox-info {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
             transform: translateX(-50%);
-            display: flex; gap: 8px; z-index: 500;
-            opacity: 0; transition: left 1s cubic-bezier(0.87,0,0.13,1);
-        }
-        #controlsContainer.visible { opacity: 1; }
-        #controlsContainer.split-mode { left: 71%; }
-        .ctrl-pill {
-            background: rgba(12,12,12,0.92);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 50px;
-            display: flex; align-items: center; gap: 2px;
-            padding: 7px 12px;
-        }
-        #percentageIndicator {
-            padding: 7px 16px; color: rgba(255,255,255,0.35);
-            font-size: 11px; font-weight: 600;
-            letter-spacing: 1px; text-transform: uppercase;
-            min-width: 60px; text-align: center;
-        }
-        .zoom-btn {
-            background: none; border: none;
-            color: rgba(255,255,255,0.35); cursor: pointer;
-            font-family: 'Outfit', sans-serif; font-size: 11px;
-            font-weight: 600; text-transform: uppercase;
-            letter-spacing: 1px; padding: 6px 13px;
-            border-radius: 50px; transition: all 0.2s;
-        }
-        .zoom-btn:hover { color: #fff; background: rgba(255,255,255,0.06); }
-        .zoom-btn.active { color: #f97316; background: rgba(249,115,22,0.1); }
-
-        /* Drag hint */
-        .drag-hint {
-            position: absolute; bottom: 20px; right: 24px;
-            color: rgba(255,255,255,0.25); font-size: 11px;
-            font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase;
-            z-index: 300;
+            text-align: center;
         }
 
-        /* Vignette on gallery section */
-        .gallery-vignette {
-            position: absolute; inset: 0; pointer-events: none; z-index: 10;
-            background: linear-gradient(
-                to bottom,
-                rgba(5,5,5,0.7) 0%, rgba(5,5,5,0.1) 15%,
-                transparent 35%, transparent 65%,
-                rgba(5,5,5,0.1) 85%, rgba(5,5,5,0.6) 100%
-            );
+        .lightbox-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
         }
 
-        /* Nav on top of everything */
-        .nav-wrapper { z-index: 99999 !important; }
-
-        @media (max-width: 768px) {
-            #splitLeft { width: 100vw; }
-            #splitRight { display: none; }
-            #imageSlideTitle h1 { font-size: 26px; }
+        .lightbox-desc {
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- HeadQ Navbar -->
+    <!-- Floating Pill Navigation -->
     <div class="nav-wrapper">
         <nav class="navbar navbar-expand-lg" id="mainNav">
             <div class="container-fluid px-2">
                 <a class="navbar-brand me-4 ms-2" href="index.html">
-                    <img src="assets/logo/logo.png" alt="HeadQ" style="height:44px;width:auto;object-fit:contain;">
+                    <img src="assets/logo/logo.png" alt="HeadQ" style="height: 44px; width: auto; object-fit: contain;">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="border:none;box-shadow:none;">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    style="border:none; box-shadow:none;">
                     <i class="fas fa-bars text-white fs-4"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
@@ -260,108 +224,58 @@
                         <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="Amenities.html">Amenities</a></li>
-                        <li class="nav-item"><a class="nav-link" href="gallery.html" style="color:#f97316!important;opacity:1!important;">Gallery</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="gallery.html" style="color:#f97316 !important;">Gallery</a></li>
                         <li class="nav-item"><a class="nav-link" href="index.html#faq">FAQ</a></li>
                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                     </ul>
                     <div class="ms-auto d-flex align-items-center">
-                        <a href="contact.html" class="btn-capsule me-2">Book Now <div class="btn-icon"><i class="fas fa-arrow-up"></i></div></a>
+                        <a href="contact.html" class="btn-capsule me-2">
+                            Book Now
+                            <div class="btn-icon"><i class="fas fa-arrow-up"></i></div>
+                        </a>
                     </div>
                 </div>
             </div>
         </nav>
     </div>
 
-    <!-- ══════════════════════════════════════════
-         HERO BANNER (restored from original)
-    ═══════════════════════════════════════════ -->
-    <section class="gallery-hero-premium d-flex align-items-center justify-content-center position-relative"
-        style="min-height: 100vh; overflow: hidden;">
+    <!-- Hero Banner -->
+    <header class="gallery-hero-premium">
         <div class="hero-overlay"></div>
-        <div class="container text-center position-relative h-100 d-flex flex-column" style="z-index: 2; padding-top: 15vh;">
-            <div class="hero-text-content m-auto">
-                <h5 class="section-tag reveal-from-bottom mb-3" style="letter-spacing: 4px; color: var(--primary-orange);">
-                    HEADQ VISUALS
-                </h5>
-                <h1 class="display-1 fw-bold text-white reveal-from-bottom mb-4"
-                    style="font-size: clamp(3rem, 8vw, 6rem); letter-spacing: -2px;">
-                    Experience <br>
-                    <span style="font-style: italic; color: rgba(255,255,255,0.9); font-weight: 300;">Elevated</span>
-                    Workspaces
-                </h1>
-            </div>
-            <div class="scroll-indicator reveal-from-bottom mt-auto pb-5"
-                style="position: relative !important; left: 50% !important; bottom: auto !important; transform: translateX(-50%) !important;">
-                <div class="mouse mx-auto"></div>
-                <p class="small text-muted mt-2 text-uppercase text-center" style="letter-spacing: 2px;">Scroll to explore</p>
-            </div>
+        <div class="container position-relative z-3 text-center" style="padding-top: 80px;">
+            <p class="text-uppercase" style="color: #f97316; letter-spacing: 4px; font-weight: 700; font-size: 14px;">HEADQ VISUALS</p>
+            <h1 class="hero-title text-white mb-3">Our Workspaces</h1>
+            <p style="color: rgba(255,255,255,0.7); max-width: 500px; margin: 0 auto; font-size: 18px; font-weight: 300;">
+                Premium environments designed to inspire creativity, foster collaboration, and fuel your ambition.
+            </p>
+        </div>
+    </header>
+
+    <!-- Masonry Grid -->
+    <section class="gallery-container">
+        <div class="masonry-grid" id="masonryGallery">
+            <!-- Images injected via JS -->
         </div>
     </section>
 
-    <!-- ══════════════════════════════════════════
-         INTERACTIVE GALLERY (drag + zoom + click)
-         15 unique images — no repeats
-    ═══════════════════════════════════════════ -->
-    <section class="gallery-interactive-section" id="gallerySection">
-
-        <!-- Section label -->
-        <div class="gallery-section-label">
-            <span class="active">KOZHIKODE</span>
-            <span style="color:rgba(255,255,255,0.12);">·</span>
-            <span>KOCHI</span>
-        </div>
-
-        <!-- Drag canvas -->
-        <div id="viewport">
-            <div id="canvasWrapper">
-                <div id="gridContainer"></div>
-            </div>
-        </div>
-
-        <!-- Vignette overlay -->
-        <div class="gallery-vignette"></div>
-
-        <!-- Zoom controls -->
-        <div id="controlsContainer">
-            <div class="ctrl-pill" id="percentageIndicator">60%</div>
-            <div class="ctrl-pill">
-                <button class="zoom-btn" onclick="gallery.setZoom(0.3,this)">Zoom Out</button>
-                <button class="zoom-btn active" onclick="gallery.setZoom(0.6,this)">Normal</button>
-                <button class="zoom-btn" onclick="gallery.setZoom(1.0,this)">Zoom In</button>
-                <button class="zoom-btn" onclick="gallery.autoFit(this)">Fit</button>
-            </div>
-        </div>
-
-        <div class="drag-hint">Drag to explore</div>
-    </section>
-
-    <!-- ── Split screen lightbox (fixed, above everything) ── -->
-    <div id="splitScreenContainer">
-        <div id="splitLeft"><div id="zoomTarget"></div></div>
-        <div id="splitRight">
-            <div class="panel-tag"><i class="fas fa-location-dot me-1"></i><span id="locTag">Kozhikode</span></div>
-            <div id="imageTitleOverlay">
-                <div id="imageSlideNumber"><span>01</span></div>
-                <div id="imageSlideTitle"><h1>HeadQ Space</h1></div>
-                <p class="desc-text" id="imageSlideDescription">Premium coworking designed for creators and community.</p>
-            </div>
+    <!-- Simple Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
+        <img src="" alt="Fullscreen View" id="lightboxImg">
+        <div class="lightbox-info">
+            <h3 class="lightbox-title" id="lightboxTitle">Title</h3>
+            <p class="lightbox-desc" id="lightboxDesc">Description</p>
         </div>
     </div>
 
-    <!-- Close button -->
-    <button id="closeButton">
-        <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
-            <path d="M7.89873 16L6.35949 14.48L11.8278 9.08H0V6.92H11.8278L6.35949 1.52L7.89873 0L16 8L7.89873 16Z" fill="white"/>
-        </svg>
-    </button>
-
     <!-- Footer -->
-    <footer class="footer border-top border-white border-opacity-10">
+    <footer class="footer border-top border-white border-opacity-10 mt-5 pt-5 pb-5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mb-5">
                     <img src="assets/logo/logo.png" alt="HeadQ" style="height: 50px; width: auto; object-fit: contain;">
-                    <p class="mt-4 pe-lg-5 text-white">Premium coworking spaces designed for creators, culture, and community.</p>
+                    <p class="mt-4 pe-lg-5 text-white">Premium coworking spaces designed for creators, culture, and
+                        community.</p>
                     <div class="mt-4">
                         <p class="text-white mb-2"><i class="fas fa-envelope text-orange me-2"></i> info@headq.in</p>
                         <p class="text-white mb-2"><i class="fas fa-phone text-orange me-2"></i> +91 90371 15652</p>
@@ -383,10 +297,16 @@
                 <div class="col-lg-4">
                     <h6 class="text-white mb-4 fw-bold">Stay Connected</h6>
                     <div class="d-flex gap-3 mb-4">
-                        <a href="https://www.facebook.com/share/1GK1qBV1BL/" target="_blank" class="fs-4" style="color:#1877F2!important;"><i class="fab fa-facebook"></i></a>
-                        <a href="https://www.instagram.com/headq_coworking?igsh=MWE2cmFmbzh3OWcyag==" target="_blank" class="fs-4" style="color:#E1306C!important;"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.linkedin.com/in/headq-coworking-space-824828200" target="_blank" class="fs-4" style="color:#0A66C2!important;"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://wa.me/919037115652?text=Hello%20I%20want%20more%20information" class="fs-4" target="_blank" style="color:#25D366!important;"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.facebook.com/share/1GK1qBV1BL/" target="_blank" class="fs-4" style="color:#1877F2 !important;"><i
+                                class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/headq_coworking?igsh=MWE2cmFmbzh3OWcyag==" target="_blank"
+                            class="fs-4" style="color:#E1306C !important;"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/headq-coworking-space-824828200?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+                            target="_blank" class="fs-4" style="color:#0A66C2 !important;"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://wa.me/919037115652?text=Hello%20I%20want%20more%20information" class="fs-4"
+                            target="_blank" style="color:#25D366 !important;">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
                     </div>
                     <p class="text-muted small">Special offer valid only for 3 months. T&amp;C Apply.</p>
                 </div>
@@ -398,264 +318,74 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Flip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/CustomEase.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="landing.js"></script>
 
     <script>
-    try { gsap.registerPlugin(Draggable, Flip, CustomEase, ScrollTrigger); } catch(e) {}
+        /* ── Gallery Data ── */
+        const IMAGE_DATA = [
+            { src: 'assets/hq-images-optimized/DSC03950.webp', title: 'Open Workstation', desc: 'Bright ergonomic desks, natural light, and a community that fuels ambition.', loc: 'Kozhikode' },
+            { src: 'assets/hq-images-optimized/DSC03957.webp', title: 'Private Cabin', desc: 'Fully enclosed private offices for deep work and confidential meetings.', loc: 'Kozhikode' },
+            { src: 'assets/hq-images-optimized/DSC03993.webp', title: 'Conference Room', desc: '10-seater boardroom with HD projector and video conferencing.', loc: 'Kozhikode' },
+            { src: 'assets/hq-images-optimized/DSC04009.webp', title: 'Breakout Lounge', desc: 'Informal brainstorming space with pantry. Recharge and reconnect.', loc: 'Kozhikode' },
+            { src: 'assets/hq-images-optimized/DSC04020.webp', title: 'Premium Reception', desc: 'Professionally staffed reception handling guests, couriers, and calls.', loc: 'Kozhikode' },
+            { src: 'assets/hq-images-optimized/DSC04024.webp', title: 'Private Calling Pod', desc: 'Soundproofed booths for video calls and focused solo sessions.', loc: 'Kozhikode' },
+            { src: 'assets/hq-images-optimized/DSC04073.webp', title: 'Collaboration Zone', desc: 'Open areas for team synergy — where Kerala\'s builders build together.', loc: 'Kozhikode' },
+            { src: 'assets/hq-images-optimized/DSC04074.webp', title: 'Premium Building', desc: 'Hi-Lite Business Park with parking, 24/7 security, and power backup.', loc: 'Kozhikode' },
+            { src: 'assets/hq-images-optimized/IMG_7655.jpg', title: 'Kochi Hub', desc: 'HiLite Platino — coastal modern workspace for high-growth startups.', loc: 'Kochi' },
+            { src: 'assets/hq-images-optimized/IMG_7668.jpg', title: 'Kochi Collaboration', desc: 'Connect with innovators at our Kochi hub. Culture meets commerce.', loc: 'Kochi' },
+            { src: 'assets/hq-images-optimized/IMG_7671.jpg', title: 'Kochi Lounge', desc: 'Vibrant breakout spaces, premium seating, unlimited coffee.', loc: 'Kochi' },
+            { src: 'assets/hq-images-optimized/IMG_7672.jpg', title: 'Modern Interiors', desc: 'Thoughtfully designed to inspire productivity. Every detail crafted.', loc: 'Kochi' },
+            { src: 'assets/hq-images-optimized/IMG_7687.jpg', title: 'Networking Hub', desc: 'Where Kochi\'s creative community gathers. Join 2,000+ members.', loc: 'Kochi' },
+            { src: 'assets/hq-images-optimized/1 (1).jpg', title: 'Premium Ambiance', desc: 'Sleek finishes with warm accents. High-performance meets design.', loc: 'HeadQ' },
+            { src: 'assets/hq-images-optimized/3.jpg', title: 'HeadQ Community', desc: 'More than a workspace — a living community of founders and changemakers.', loc: 'HeadQ' }
+        ];
 
-    /* ── 15 unique images — NO repeats ── */
-    const IMAGES = [
-        { src:'assets/hq-images-optimized/DSC03950.webp', num:'01', title:'Open Workstation',       desc:'Bright ergonomic desks, natural light, and a community that fuels ambition.',               loc:'Hi-Lite Business Park, Kozhikode' },
-        { src:'assets/hq-images-optimized/DSC03957.webp', num:'02', title:'Private Cabin Suite',    desc:'Fully enclosed private offices for deep work and confidential meetings.',                  loc:'Hi-Lite Business Park, Kozhikode' },
-        { src:'assets/hq-images-optimized/DSC03993.webp', num:'03', title:'Conference Room',        desc:'10-seater boardroom with HD projector, whiteboard, and video conferencing.',               loc:'Hi-Lite Business Park, Kozhikode' },
-        { src:'assets/hq-images-optimized/DSC04009.webp', num:'04', title:'Breakout Lounge',        desc:'Informal brainstorming with pantry facilities. Recharge over great conversations.',         loc:'Hi-Lite Business Park, Kozhikode' },
-        { src:'assets/hq-images-optimized/DSC04020.webp', num:'05', title:'Premium Reception',      desc:'Professionally staffed reception handling your guests, couriers, and calls.',              loc:'Hi-Lite Business Park, Kozhikode' },
-        { src:'assets/hq-images-optimized/DSC04024.webp', num:'06', title:'Private Calling Pod',    desc:'Soundproofed booths for video calls, podcasts, or focused solo sessions.',                 loc:'Hi-Lite Business Park, Kozhikode' },
-        { src:'assets/hq-images-optimized/DSC04073.webp', num:'07', title:'Collaboration Zone',     desc:'Open areas designed for team synergy — where Kerala\'s builders come together.',          loc:'Hi-Lite Business Park, Kozhikode' },
-        { src:'assets/hq-images-optimized/DSC04074.webp', num:'08', title:'Premium Building',       desc:'Hi-Lite Business Park — ample parking, 24/7 security, and uninterrupted power.',          loc:'Hi-Lite Business Park, Kozhikode' },
-        { src:'assets/hq-images-optimized/IMG_7655.jpg',  num:'09', title:'Kochi Hub Workspace',    desc:'HiLite Platino, Kochi — coastal modern workspace for high-growth startups.',              loc:'HiLite Platino, Kochi' },
-        { src:'assets/hq-images-optimized/IMG_7668.jpg',  num:'10', title:'Kochi Collaboration',    desc:'Connect with innovators at our Kochi hub. Culture meets commerce in Kerala.',              loc:'HiLite Platino, Kochi' },
-        { src:'assets/hq-images-optimized/IMG_7671.jpg',  num:'11', title:'Kochi Lounge',           desc:'Vibrant breakout spaces for your Kochi team. Premium seating, unlimited coffee.',          loc:'HiLite Platino, Kochi' },
-        { src:'assets/hq-images-optimized/IMG_7672.jpg',  num:'12', title:'Modern Interiors',       desc:'Thoughtfully designed interiors that inspire productivity. Every detail counts.',           loc:'HiLite Platino, Kochi' },
-        { src:'assets/hq-images-optimized/IMG_7687.jpg',  num:'13', title:'Networking Hub',         desc:'Where Kochi\'s creative community gathers. Join 2,000+ members across HeadQ.',           loc:'HiLite Platino, Kochi' },
-        { src:'assets/hq-images-optimized/1 (1).jpg',     num:'14', title:'Premium Ambiance',       desc:'Sleek modern finishes with warm accents — where high performance meets great design.',    loc:'HeadQ · Kerala' },
-        { src:'assets/hq-images-optimized/3.jpg',         num:'15', title:'HeadQ Community',        desc:'More than a workspace — a living community of founders, freelancers, and changemakers.',  loc:'HeadQ · Kerala' },
-    ];
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('masonryGallery');
+            const lightbox = document.getElementById('lightbox');
+            const lbImg = document.getElementById('lightboxImg');
+            const lbTitle = document.getElementById('lightboxTitle');
+            const lbDesc = document.getElementById('lightboxDesc');
+            const lbClose = document.getElementById('lightboxClose');
 
-    class HeadQGallery {
-        constructor() {
-            // 3 rows × 5 cols = exactly 15 cells (one per image)
-            this.ROWS = 3; this.COLS = 5;
-            this.ITEM = 360; this.GAP = 24;
-            this.zoom = 0.72;
-            this.items = [];
-            this.lastPos = { x:0, y:0 };
-            this.drag = null;
-            this.zs = { active:false, selected:null, overlay:null };
-            this.ease = typeof CustomEase !== 'undefined'
-                ? CustomEase.create('smooth', '.87,0,.13,1')
-                : 'power2.inOut';
-            this.section = document.getElementById('gallerySection');
-        }
-
-        get totalW() { return this.COLS*(this.ITEM+this.GAP)-this.GAP; }
-        get totalH() { return this.ROWS*(this.ITEM+this.GAP)-this.GAP; }
-        get scaledW() { return this.totalW*this.zoom; }
-        get scaledH() { return this.totalH*this.zoom; }
-
-        buildGrid() {
-            const gc = document.getElementById('gridContainer');
-            const cw = document.getElementById('canvasWrapper');
-            gc.innerHTML = ''; this.items = [];
-            cw.style.width = this.totalW+'px'; cw.style.height = this.totalH+'px';
-            gc.style.width = this.totalW+'px'; gc.style.height = this.totalH+'px';
-            // Exactly 15 cells = 15 images, no repeats
-            IMAGES.forEach((imgData, i) => {
-                const r = Math.floor(i / this.COLS);
-                const c = i % this.COLS;
-                const div = document.createElement('div');
-                div.className = 'grid-item';
-                const x = c*(this.ITEM+this.GAP);
-                const y = r*(this.ITEM+this.GAP);
-                div.style.cssText = `left:${x}px;top:${y}px;opacity:0;`;
-                const img = new Image();
-                img.src = imgData.src; img.alt = imgData.title; img.loading = 'lazy';
-                div.appendChild(img);
-                const data = { el:div, img, r, c, x, y, idx:i };
-                div.addEventListener('click', () => { if (!this.zs.active) this.openZoom(data); });
-                gc.appendChild(div);
-                this.items.push(data);
+            // 1. Build Masonry Grid
+            let html = '';
+            IMAGE_DATA.forEach((item, i) => {
+                html += `
+                    <div class="masonry-item" data-index="${i}">
+                        <img src="${item.src}" alt="${item.title}" loading="lazy" decoding="async">
+                        <div class="item-overlay">
+                            <div class="item-tag">${item.loc}</div>
+                            <h3 class="item-title">${item.title}</h3>
+                        </div>
+                    </div>
+                `;
             });
-        }
+            grid.innerHTML = html;
 
-        center() {
-            const sec = this.section.getBoundingClientRect();
-            const vw = this.section.offsetWidth, vh = this.section.offsetHeight;
-            return {
-                x: Math.max((vw - this.scaledW)/2, 20),
-                y: Math.max((vh - this.scaledH)/2, 70)
-            };
-        }
-
-        initDrag() {
-            if (this.drag) this.drag.kill();
-            const vw = this.section.offsetWidth, vh = this.section.offsetHeight;
-            const sw = this.scaledW, sh = this.scaledH;
-            const mg = 24;
-            const bounds = {
-                minX: sw <= vw ? (vw-sw)/2 : vw-sw-mg,
-                maxX: sw <= vw ? (vw-sw)/2 : mg,
-                minY: sh <= vh ? (vh-sh)/2 : vh-sh-mg,
-                maxY: sh <= vh ? (vh-sh)/2 : mg
-            };
-            this.drag = Draggable.create(document.getElementById('canvasWrapper'), {
-                type:'x,y', bounds,
-                onDragStart: () => document.body.classList.add('dragging'),
-                onDrag:      () => { this.lastPos.x=this.drag.x; this.lastPos.y=this.drag.y; },
-                onDragEnd:   () => document.body.classList.remove('dragging')
-            })[0];
-        }
-
-        playIntro() {
-            this.items.forEach(d => {
-                gsap.set(d.el, { left:this.totalW/2-this.ITEM/2, top:this.totalH/2-this.ITEM/2, opacity:0, scale:0.75 });
+            // 2. Lightbox Logic
+            document.querySelectorAll('.masonry-item').forEach(el => {
+                el.addEventListener('click', () => {
+                    const idx = el.getAttribute('data-index');
+                    const data = IMAGE_DATA[idx];
+                    lbImg.src = data.src;
+                    lbTitle.textContent = data.title;
+                    lbDesc.textContent = `${data.loc} — ${data.desc}`;
+                    lightbox.classList.add('active');
+                });
             });
-            gsap.to(this.items.map(d=>d.el), {
-                duration: 0.6,
-                left: i => this.items[i].x,
-                top:  i => this.items[i].y,
-                scale:1, opacity:1,
-                ease:'power2.out',
-                stagger:{ amount:1.4, from:'start', grid:[this.ROWS,this.COLS] },
-                onComplete: () => {
-                    this.initDrag();
-                    gsap.to('#controlsContainer', { opacity:1, duration:0.5 });
-                    document.getElementById('controlsContainer').classList.add('visible');
-                }
+
+            // Close Lightbox
+            const closeLB = () => lightbox.classList.remove('active');
+            lbClose.addEventListener('click', closeLB);
+            lightbox.addEventListener('click', (e) => {
+                if(e.target === lightbox || e.target.classList.contains('lightbox-info')) closeLB();
             });
-        }
-
-        openZoom(data) {
-            this.zs.active=true; this.zs.selected=data;
-            if (this.drag) this.drag.disable();
-            document.body.classList.add('zoom-mode');
-            const sc = document.getElementById('splitScreenContainer');
-            sc.classList.add('active');
-            gsap.to(sc, { opacity:1, duration:0.7, ease:this.ease });
-
-            const ov = document.createElement('div');
-            ov.className = 'scaling-image-overlay';
-            const ci = document.createElement('img'); ci.src=data.img.src; ci.alt=data.img.alt;
-            ov.appendChild(ci); document.body.appendChild(ov);
-            const r = data.img.getBoundingClientRect();
-            gsap.set(ov, { left:r.left, top:r.top, width:r.width, height:r.height });
-            gsap.set(data.img, { opacity:0 });
-            this.zs.overlay = ov;
-
-            const zt = document.getElementById('zoomTarget');
-            try {
-                Flip.fit(ov, zt, { duration:1.0, ease:this.ease, absolute:true,
-                    onComplete: () => this.showInfo(data.idx) });
-            } catch(e) {
-                const tr = zt.getBoundingClientRect();
-                gsap.to(ov, { left:tr.left, top:tr.top, width:tr.width, height:tr.height, duration:0.9, ease:this.ease,
-                    onComplete: () => this.showInfo(data.idx) });
-            }
-
-            document.getElementById('controlsContainer').classList.add('split-mode');
-            const cb = document.getElementById('closeButton');
-            gsap.to(cb, { opacity:1, x:0, duration:0.4, delay:0.7, ease:'power2.out' });
-            cb.classList.add('active');
-            document.getElementById('splitLeft').addEventListener('click',
-                this._sc = e => { if(e.target===e.currentTarget) this.closeZoom(); });
-            document.addEventListener('keydown', this._ek = e => { if(e.key==='Escape') this.closeZoom(); });
-        }
-
-        showInfo(idx) {
-            const d = IMAGES[idx];
-            document.querySelector('#imageSlideNumber span').textContent = d.num;
-            document.querySelector('#imageSlideTitle h1').textContent = d.title;
-            document.getElementById('imageSlideDescription').textContent = d.desc;
-            document.getElementById('locTag').textContent = d.loc;
-            gsap.fromTo('#imageTitleOverlay', { opacity:0, y:16 }, { opacity:1, y:0, duration:0.55, ease:'power2.out' });
-        }
-
-        closeZoom() {
-            if (!this.zs.active) return;
-            document.removeEventListener('keydown', this._ek);
-            document.getElementById('splitLeft').removeEventListener('click', this._sc);
-            const sc = document.getElementById('splitScreenContainer');
-            const cb = document.getElementById('closeButton');
-            gsap.to('#imageTitleOverlay', { opacity:0, duration:0.2 });
-            gsap.to(cb, { opacity:0, duration:0.2 });
-            cb.classList.remove('active');
-            sc.classList.remove('active');
-            gsap.to(sc, { opacity:0, duration:0.5 });
-            document.getElementById('controlsContainer').classList.remove('split-mode');
-            const data = this.zs.selected, clone = this.zs.overlay;
-            try {
-                Flip.fit(clone, data.el, { duration:0.85, ease:this.ease, absolute:true,
-                    onComplete: () => this._reset(data,clone) });
-            } catch(e) {
-                const r = data.el.getBoundingClientRect();
-                gsap.to(clone, { left:r.left, top:r.top, width:r.width, height:r.height, duration:0.8,
-                    onComplete: () => this._reset(data,clone) });
-            }
-            if (clone) gsap.to(clone, { opacity:0.25, duration:0.6 });
-        }
-
-        _reset(data, clone) {
-            if (data) gsap.set(data.img, { opacity:1 });
-            if (clone?.parentNode) clone.parentNode.removeChild(clone);
-            document.body.classList.remove('zoom-mode');
-            this.zs = { active:false, selected:null, overlay:null };
-            if (this.drag) this.drag.enable();
-        }
-
-        updatePct(z) { document.getElementById('percentageIndicator').textContent = Math.round(z*100)+'%'; }
-
-        setZoom(z, btn=null) {
-            if (this.zs.active) { this.closeZoom(); return; }
-            this.zoom = z;
-            const c = this.center();
-            gsap.to(document.getElementById('canvasWrapper'), {
-                scale:z, x:c.x, y:c.y, duration:0.85, ease:this.ease,
-                onComplete: () => { this.lastPos=c; this.initDrag(); }
+            document.addEventListener('keydown', (e) => {
+                if(e.key === 'Escape') closeLB();
             });
-            this.updatePct(z);
-            document.querySelectorAll('.zoom-btn').forEach(b=>b.classList.remove('active'));
-            if (btn) btn.classList.add('active');
-        }
-
-        autoFit(btn=null) {
-            const vw=this.section.offsetWidth-40, vh=this.section.offsetHeight-100;
-            const fit = Math.max(0.1, Math.min(1.5, Math.min(vw/this.totalW, vh/this.totalH)));
-            this.setZoom(fit, btn);
-        }
-
-        init() {
-            this.buildGrid();
-            const vp = document.getElementById('viewport');
-            const cw = document.getElementById('canvasWrapper');
-            gsap.set(vp, { opacity:0 });
-            gsap.set(cw, { scale:this.zoom });
-            const c = this.center();
-            gsap.set(cw, { x:c.x, y:c.y }); this.lastPos=c;
-            this.updatePct(this.zoom);
-            document.getElementById('closeButton').addEventListener('click', () => this.closeZoom());
-            document.addEventListener('keydown', e => {
-                if (this.zs.active) return;
-                if (e.key==='1') this.setZoom(0.3);
-                else if (e.key==='2') this.setZoom(0.6);
-                else if (e.key==='3') this.setZoom(1.0);
-                else if (e.key==='f'||e.key==='F') this.autoFit();
-            });
-            window.addEventListener('resize', () => setTimeout(()=>{const nc=this.center();gsap.set(cw,{x:nc.x,y:nc.y});this.initDrag();},100));
-
-            // Trigger gallery when scrolled into view
-            ScrollTrigger.create({
-                trigger: '#gallerySection',
-                start: 'top 80%',
-                once: true,
-                onEnter: () => {
-                    gsap.to(vp, { opacity:1, duration:0.5,
-                        onComplete: () => this.playIntro() });
-                }
-            });
-        }
-    }
-
-    let gallery;
-    document.addEventListener('DOMContentLoaded', () => {
-        gallery = new HeadQGallery();
-        gallery.init();
-    });
+        });
     </script>
 </body>
 </html>

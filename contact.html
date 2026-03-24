@@ -803,6 +803,11 @@ _Sent via HeadQ Contact Page_`;
                     onComplete: () => {
                         setChecked(false);
                         setPhase(1);
+                        const el = document.getElementById('contact-section');
+                        if (el) {
+                            el.style.display = 'block';
+                            setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+                        }
                         busy.current = false;
                     }
                 })
