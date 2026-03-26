@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sumith12345678.github.io/hq/sitemap.xml
